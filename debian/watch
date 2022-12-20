@@ -1,0 +1,3 @@
+version=4
+https://www.flyn.org/projects/@PACKAGE@/download.html \
+	@PACKAGE@@ANY_VERSION@@ARCHIVE_EXT@

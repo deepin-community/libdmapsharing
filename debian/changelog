@@ -1,0 +1,226 @@
+libdmapsharing (2.9.41-deepin1) unstable; urgency=medium
+
+  * Rebuild
+
+ -- Deepin Packages Builder <packages@deepin.org>  Fri, 11 Nov 2022 17:59:04 +0800
+
+libdmapsharing (2.9.41-3) unstable; urgency=medium
+
+  * debian/control.in:
+    - libdmapsharing-3.0-dev Depends libgstreamer-plugins-base1.0-dev
+
+ -- Sebastien Bacher <seb128@ubuntu.com>  Wed, 05 Aug 2020 17:07:01 +0200
+
+libdmapsharing (2.9.41-2) unstable; urgency=medium
+
+  * debian/libdmapsharing-3.0-2.symbols:
+    - extra symbol updates
+
+ -- Sebastien Bacher <seb128@ubuntu.com>  Tue, 28 Jul 2020 22:27:09 +0200
+
+libdmapsharing (2.9.41-1) unstable; urgency=medium
+
+  * New upstream version
+  * debian/control.in:
+    - Build-Depends on check
+  * debian/libdmapsharing-3.0-2.symbols:
+    - updated for the new version
+  * debian/patches/0001-Update-Vala-code-to-build-with-Vala-0.44.3.patch:
+    - removed, included in the new version
+  * debian/rules:
+    - remove the .a from the library
+
+ -- Sebastien Bacher <seb128@ubuntu.com>  Mon, 27 Jul 2020 16:48:10 +0200
+
+libdmapsharing (2.9.39-6) unstable; urgency=medium
+
+  * Bump Standards-Version to 4.4.1
+
+ -- Jeremy Bicha <jbicha@debian.org>  Thu, 31 Oct 2019 07:29:26 -0400
+
+libdmapsharing (2.9.39-5) unstable; urgency=medium
+
+  [ Philip Chimento ]
+  * Fix build with newer valac
+  * debian/rules: Add --enable-gtk-doc to fix build
+  * d/rules, d/control: Add a gir1.2-dmap-3.0 package
+
+  [ Jeremy Bicha ]
+  * Build-Depend on debhelper-compat 12 and drop debian/compat
+  * Build-Depend on dh-sequence-gnome instead of gnome-pkg-tools
+
+ -- Jeremy Bicha <jbicha@debian.org>  Mon, 07 Oct 2019 19:17:55 -0400
+
+libdmapsharing (2.9.39-4) unstable; urgency=medium
+
+  * Drop -Wl,-z,defs from our extra LDFLAGS to fix build on some arches
+
+ -- Jeremy Bicha <jbicha@debian.org>  Thu, 27 Dec 2018 23:05:16 -0500
+
+libdmapsharing (2.9.39-3) unstable; urgency=medium
+
+  * Update Vcs fields for migration to https://salsa.debian.org/
+  * debian/libdmapsharing-3.0-2.symbols: Add Build-Depends-Package
+  * Bump Standards-Version to 4.3.0
+
+ -- Jeremy Bicha <jbicha@debian.org>  Thu, 27 Dec 2018 20:15:20 -0500
+
+libdmapsharing (2.9.39-2) unstable; urgency=medium
+
+  * Update Vcs fields for conversion to git
+  * Add debian/gbp.conf
+  * Bump Standards-Version to 4.1.2
+  * Bump debhelper compat to 11
+
+ -- Jeremy Bicha <jbicha@debian.org>  Sun, 17 Dec 2017 19:20:21 -0500
+
+libdmapsharing (2.9.39-1) unstable; urgency=medium
+
+  * New upstream release.
+
+ -- Andreas Henriksson <andreas@fatal.se>  Sun, 02 Jul 2017 08:48:50 +0200
+
+libdmapsharing (2.9.37-1) unstable; urgency=medium
+
+  * New upstream release.
+  * Bump debhelper compat level to 10.
+
+ -- Michael Biebl <biebl@debian.org>  Sun, 13 Nov 2016 06:28:36 +0100
+
+libdmapsharing (2.9.36-1) unstable; urgency=medium
+
+  * New upstream release.
+
+ -- Michael Biebl <biebl@debian.org>  Sun, 07 Aug 2016 15:02:30 +0200
+
+libdmapsharing (2.9.35-1) unstable; urgency=medium
+
+  * New upstream release.
+  * Convert from cdbs to dh.
+  * Bump Standards-Version to 3.9.8.
+
+ -- Michael Biebl <biebl@debian.org>  Fri, 27 May 2016 15:59:35 +0200
+
+libdmapsharing (2.9.34-1) unstable; urgency=medium
+
+  * New upstream release.
+  * Add Build-Depends on libgee-0.8-dev and valac to rebuild the .vala files.
+
+ -- Michael Biebl <biebl@debian.org>  Sun, 06 Mar 2016 22:52:29 +0100
+
+libdmapsharing (2.9.33-1) unstable; urgency=medium
+
+  * New upstream release.
+  * Bump Build-Depends on libsoup2.4-dev to (>= 2.48) as per configure.ac.
+  * Bump Standards-Version to 3.9.7.
+
+ -- Michael Biebl <biebl@debian.org>  Sun, 14 Feb 2016 21:46:13 +0100
+
+libdmapsharing (2.9.32-1) unstable; urgency=medium
+
+  * New upstream release.
+  * Convert to multiarch. (Closes: #770269)
+
+ -- Michael Biebl <biebl@debian.org>  Wed, 21 Oct 2015 18:05:39 +0200
+
+libdmapsharing (2.9.31-1) unstable; urgency=medium
+
+  * New upstream release.
+
+ -- Michael Biebl <biebl@debian.org>  Mon, 15 Jun 2015 00:46:25 +0200
+
+libdmapsharing (2.9.30-1) unstable; urgency=medium
+
+  * New upstream release.
+  * Bump Standards-Version to 3.9.6. No further changes.
+
+ -- Michael Biebl <biebl@debian.org>  Fri, 15 May 2015 00:17:29 +0200
+
+libdmapsharing (2.9.28-1) unstable; urgency=medium
+
+  [ Jackson Doak ]
+  * New upstream release
+  * Build with dh-autoreconf
+
+  [ Andreas Henriksson ]
+  * Bump Standards-Version to 3.9.5
+
+ -- Andreas Henriksson <andreas@fatal.se>  Fri, 29 Aug 2014 11:22:37 -0700
+
+libdmapsharing (2.9.23-1) unstable; urgency=low
+
+  * New upstream release.
+  * Update symbols file.
+
+ -- Michael Biebl <biebl@debian.org>  Thu, 29 Aug 2013 12:30:01 +0200
+
+libdmapsharing (2.9.18-1) unstable; urgency=low
+
+  * New upstream release.
+  * Update symbols file.
+
+ -- Michael Biebl <biebl@debian.org>  Sat, 29 Jun 2013 22:28:20 +0200
+
+libdmapsharing (2.9.17-1) unstable; urgency=low
+
+  [ Jean Schurger ]
+  * New upstream release.
+  * debian/control.in:
+    - Updated Vcs-Svn.
+    - Bump Standards-Version to 3.9.4.
+    - Updated build and '-dev' dependencies from libgstreamer0.10 to
+      libgstreamer1.0 according to configure.ac.
+
+  [ Jordi Mallach ]
+  * Remove duplicate Section fields.
+  * Bump to debhelper v9.
+  * Use the list-missing rule.
+  * Pass -c4 to dpkg-gensymbols.
+
+ -- Jordi Mallach <jordi@debian.org>  Mon, 27 May 2013 20:02:23 +0200
+
+libdmapsharing (2.9.15-1) unstable; urgency=low
+
+  * New upstream release.
+  * Bump Standards-Version to 3.9.3.
+
+ -- Michael Biebl <biebl@debian.org>  Thu, 19 Apr 2012 20:50:13 +0200
+
+libdmapsharing (2.9.14-1) unstable; urgency=low
+
+  * New upstream release.
+
+ -- Michael Biebl <biebl@debian.org>  Thu, 08 Dec 2011 09:06:21 +0100
+
+libdmapsharing (2.9.13-1) unstable; urgency=low
+
+  * New upstream release.
+
+ -- Michael Biebl <biebl@debian.org>  Thu, 01 Dec 2011 10:07:48 +0100
+
+libdmapsharing (2.9.12-1) unstable; urgency=low
+
+  [ Jean Schurger ]
+  * New upstream version.
+  * debian/control.in:
+    - Bumped Standards-Version to 3.9.2 (no change needed)
+  * debian/rules
+    - Explicitly use the .tar.gz archive as upstream did not switch to .bz2 yet
+  * debian/control.in
+    - Added homepage
+
+  [ Michael Biebl ]
+  * Bump debhelper compatibility level to 8.
+    - Update Build-Depends on debhelper.
+    - Strip debian/tmp/ from .install files.
+  * debian/control.in: Update Vcs-* fields.
+  * debian/libdmapsharing-3.0-2.symbols: Add symbols file for improved shlibs
+    dependency tracking.
+
+ -- Michael Biebl <biebl@debian.org>  Wed, 03 Aug 2011 02:16:06 +0200
+
+libdmapsharing (2.9.7-1) experimental; urgency=low
+
+  * Initial release. (Closes: #620060)
+
+ -- Josselin Mouette <joss@debian.org>  Tue, 29 Mar 2011 19:52:57 +0200
