@@ -17,8 +17,8 @@
  * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA*
  */
 
-#ifndef __DMAP_PRIVATE_UTILS_H__
-#define __DMAP_PRIVATE_UTILS_H__
+#ifndef _DMAP_PRIVATE_UTILS_H
+#define _DMAP_PRIVATE_UTILS_H
 
 #include <glib.h>
 #include <libsoup/soup.h>
@@ -26,6 +26,9 @@
 #include <libdmapsharing/dmap-config.h>
 
 G_BEGIN_DECLS
+
+#define DMAP_SHARE_CHUNK_SIZE 16384
+
 #if DMAP_HAVE_UNALIGNED_ACCESS
 #define _DMAP_GET(__data, __size, __end) \
     (GUINT##__size##_FROM_##__end (* ((guint##__size *) (__data))))
@@ -59,10 +62,11 @@ G_BEGIN_DECLS
 {
 	SoupServer *server;
 	GInputStream *stream;
+	GInputStream *original_stream;
 } ChunkData;
 
-void   dmap_write_next_chunk (SoupMessage * message, ChunkData * cd);
-void   dmap_chunked_message_finished (SoupMessage * message, ChunkData * cd);
+void   dmap_private_utils_write_next_chunk (SoupServerMessage * message, ChunkData * cd);
+void   dmap_private_utils_chunked_message_finished (SoupServerMessage * message, ChunkData * cd);
 
 G_END_DECLS
 #endif

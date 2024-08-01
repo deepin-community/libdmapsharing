@@ -1,5 +1,12 @@
 = Short term ===================================================================
 
+Port to libsoup3.
+	See https://libsoup.org/libsoup-3.0/migrating-from-libsoup-2.html.
+
+	Clean up memory leak.
+
+See notes about test-* in libdmapsharing/Makefile.am.
+
 GNOME Bugs:
 	344616: support database updates
 	686220: play nicely with firewalld
@@ -30,11 +37,6 @@ Mike: Realtime transcode: must g_input_stream_close what is returned from
 daap_record_read, unless I change API (see also dmapd.c)
 
 = Long term ====================================================================
-
-API Changes:
-	now_playing_artwork seems to return a filename, so should return a gchar *, not guchar *?
-	Stuff related to Python introspection
-	Allow single client to more easily make use of both DAAP and DPAP (embed type in browser service?)
 
 Mike: Audit remaining GSoC patch:
 --- dmap-db.c

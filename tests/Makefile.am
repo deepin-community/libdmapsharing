@@ -11,15 +11,13 @@ endif
 
 # Automake documentation mentions LDADD, but it does not work;
 # LIBS does.
-LIBS += $(top_builddir)/libdmapsharing/libdmapsharing-3.0.la
+LIBS += $(top_builddir)/libdmapsharing/libdmapsharing-4.0.la
 
 if HAVE_CHECK
 noinst_PROGRAMS += unit-test
 endif
-endif
 
 test_dmap_client_SOURCES = \
-	test-dmap-db.c \
 	test-dmap-client.c
 
 test_dmap_client_LDADD = \
@@ -33,9 +31,6 @@ test_dmap_client_LDADD = \
 	$(MDNS_LIBS)
 
 test_dmap_server_SOURCES = \
-	test-dmap-db.c \
-	test-dmap-container-record.c \
-	test-dmap-container-db.c \
 	test-dmap-server.c
 
 test_dmap_server_LDADD = \
@@ -49,16 +44,16 @@ test_dmap_server_LDADD = \
 	$(MDNS_LIBS)
 
 dacplisten.c: $(dacplisten_VALASOURCES)
-	$(VALAC) --vapidir=../vala --pkg gee-0.8 --pkg gstreamer-1.0 --pkg libdmapsharing-3.0 --pkg libsoup-2.4 --pkg gio-2.0 --pkg avahi-gobject  $^ -C
+	$(VALAC) --vapidir=../vala --pkg gee-0.8 --pkg gstreamer-1.0 --pkg libdmapsharing-4.0 --pkg libsoup-3.0 --pkg gio-2.0 --pkg avahi-gobject  $^ -C
 
 dpapview.c: $(dpapview_VALASOURCES)
-	$(VALAC) --vapidir=../vala --pkg gee-0.8 --pkg gtk+-3.0 --pkg gstreamer-1.0 --pkg libdmapsharing-3.0 --pkg libsoup-2.4 --pkg gio-2.0 --pkg avahi-gobject $^ -C
+	$(VALAC) --vapidir=../vala --pkg gee-0.8 --pkg gtk+-3.0 --pkg gstreamer-1.0 --pkg libdmapsharing-4.0 --pkg libsoup-3.0 --pkg gio-2.0 --pkg avahi-gobject $^ -C
 
 dmapcopy.c: $(dmapcopy_VALASOURCES)
-	$(VALAC) --vapidir=../vala --pkg gee-0.8 --pkg gstreamer-1.0 --pkg libdmapsharing-3.0 --pkg libsoup-2.4 --pkg gio-2.0 --pkg avahi-gobject $^ -C
+	$(VALAC) --vapidir=../vala --pkg gee-0.8 --pkg gstreamer-1.0 --pkg libdmapsharing-4.0 --pkg libsoup-3.0 --pkg gio-2.0 --pkg avahi-gobject $^ -C
 
 dmapserve.c: $(dmapserve_VALASOURCES)
-	$(VALAC) --vapidir=../vala --pkg gee-0.8 --pkg gstreamer-1.0 --pkg libdmapsharing-3.0 --pkg libsoup-2.4 --pkg gio-2.0 --pkg avahi-gobject $^ -C
+	$(VALAC) --vapidir=../vala --pkg gee-0.8 --pkg gstreamer-1.0 --pkg libdmapsharing-4.0 --pkg libsoup-3.0 --pkg gio-2.0 --pkg avahi-gobject $^ -C
 
 dacplisten_VALASOURCES = \
 	dacplisten.vala \
@@ -76,7 +71,7 @@ dacplisten_LDADD = \
 dpapview_VALASOURCES = \
 	dpapview.vala \
 	vala-dmap-db.vala \
-	vala-dpap-record.vala
+	vala-image-record.vala
 
 dpapview_VALABUILTSOURCES = $(dpapview_VALASOURCES:.vala=.c)
 
@@ -90,7 +85,7 @@ dpapview_LDADD = \
 dmapcopy_VALASOURCES = \
 	dmapcopy.vala \
 	vala-dmap-db.vala \
-	vala-dpap-record.vala
+	vala-image-record.vala
 
 dmapcopy_VALABUILTSOURCES = $(dmapcopy_VALASOURCES:.vala=.c)
 
@@ -103,7 +98,7 @@ dmapcopy_LDADD = \
 dmapserve_VALASOURCES = \
 	dmapserve.vala \
 	vala-dmap-db.vala \
-	vala-dpap-record.vala \
+	vala-image-record.vala \
 	vala-dmap-container-db.vala
 
 dmapserve_VALABUILTSOURCES = $(dmapserve_VALASOURCES:.vala=.c)
@@ -135,11 +130,6 @@ AM_CPPFLAGS = \
 	$(MDNS_CFLAGS) \
 	$(SOUP_CFLAGS)
 
-noinst_HEADERS = \
-	test-dmap-container-record.h \
-	test-dmap-container-db.h \
-	test-dmap-db.h
-
 EXTRA_DIST = \
 	$(dacplisten_VALABUILTSOURCES) \
 	$(dacplisten_VALASOURCES) \
@@ -158,4 +148,5 @@ CLEANFILES = \
 	$(dmapserve_VALABUILTSOURCES) \
 	$(dpapview_VALABUILTSOURCES) \
 	$(dpapview_VALABUILTSOURCES)
+endif
 endif

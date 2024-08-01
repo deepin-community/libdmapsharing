@@ -24,152 +24,78 @@
 
 typedef struct FilterData
 {
-	DMAPDb *db;
+	DmapDb *db;
 	GSList *filter_def;
 	GHashTable *ht;
 } FilterData;
 
-static gint dmap_db_init_count = 0;
-
 static void
-dmap_db_init (G_GNUC_UNUSED DMAPDbIface * iface)
+dmap_db_default_init (G_GNUC_UNUSED DmapDbInterface * iface)
 {
-	dmap_db_init_count++;
 }
 
-static void
-dmap_db_finalize (G_GNUC_UNUSED DMAPDbIface * iface)
-{
-	dmap_db_init_count--;
-}
+G_DEFINE_INTERFACE(DmapDb, dmap_db, G_TYPE_OBJECT)
 
-/* FIXME: No G_DEFINE_INTERFACE available in GObject headers: */
-GType
-dmap_db_get_type (void)
-{
-	static GType object_type = 0;
-
-	if (!object_type) {
-		static const GTypeInfo object_info = {
-			class_size:     sizeof (DMAPDbIface),
-			base_init:     (GBaseInitFunc) dmap_db_init,
-			base_finalize: (GBaseFinalizeFunc) dmap_db_finalize
-		};
-		object_type =
-			g_type_register_static (G_TYPE_INTERFACE,
-						"DMAPDb", &object_info, 0);
-		g_type_interface_add_prerequisite (object_type,
-						   G_TYPE_OBJECT);
-	}
-	return object_type;
-}
-
-DMAPRecord *
-dmap_db_lookup_by_id (const DMAPDb * db, guint id)
+DmapRecord *
+dmap_db_lookup_by_id (const DmapDb * db, guint id)
 {
 	return DMAP_DB_GET_INTERFACE (db)->lookup_by_id (db, id);
 }
 
 guint
-dmap_db_lookup_id_by_location (const DMAPDb * db, const gchar * location)
+dmap_db_lookup_id_by_location (const DmapDb * db, const gchar * location)
 {
 	return DMAP_DB_GET_INTERFACE (db)->lookup_id_by_location (db,
 								  location);
 }
 
 void
-dmap_db_foreach (const DMAPDb * db, GHFunc func, gpointer data)
+dmap_db_foreach (const DmapDb * db, DmapIdRecordFunc func, gpointer data)
 {
 	DMAP_DB_GET_INTERFACE (db)->foreach (db, func, data);
 }
 
 guint
-dmap_db_add (DMAPDb * db, DMAPRecord * record)
+dmap_db_add (DmapDb *db, DmapRecord *record, GError **error)
 {
-	return DMAP_DB_GET_INTERFACE (db)->add (db, record);
+	return DMAP_DB_GET_INTERFACE (db)->add (db, record, error);
 }
 
 guint
-dmap_db_add_with_id (DMAPDb * db, DMAPRecord * record, guint id)
+dmap_db_add_with_id (DmapDb *db, DmapRecord *record, guint id, GError **error)
 {
-	return DMAP_DB_GET_INTERFACE (db)->add_with_id (db, record, id);
+	return DMAP_DB_GET_INTERFACE (db)->add_with_id (db, record, id, error);
 }
 
 guint
-dmap_db_add_path (DMAPDb * db, const gchar * path)
+dmap_db_add_path (DmapDb *db, const gchar *path, GError **error)
 {
-	return DMAP_DB_GET_INTERFACE (db)->add_path (db, path);
+	return DMAP_DB_GET_INTERFACE (db)->add_path (db, path, error);
 }
 
 gulong
-dmap_db_count (const DMAPDb * db)
+dmap_db_count (const DmapDb * db)
 {
 	return DMAP_DB_GET_INTERFACE (db)->count (db);
 }
 
-gchar **
-_dmap_db_strsplit_using_quotes (const gchar * str)
-{
-	/* What we are splitting looks something like this:
-	 * 'foo'text to ignore'bar'.
-	 */
-
-	gchar **fnval = NULL;
-
-	if (str != NULL) {
-		int i, j;
-
-		fnval = g_strsplit (str, "\'", 0);
-
-		for (i = j = 0; fnval[i]; i++) {
-			gchar *token = fnval[i];
-
-			/* Handle areas around ':
-			 * 'foo' 'bar'
-			 * ^
-			 * 'foo' 'bar'
-			 *      ^
-			 * 'foo'+'bar'
-			 *      ^
-			 */
-			if (*token == '\0' || *token == ' ' || *token == '+')
-				continue;
-
-			/* Handle mistaken split at escaped '. */
-			if (token[strlen (token) - 1] == '\\') {
-				token = g_strconcat (fnval[i], "'",
-						     fnval[i + 1], NULL);
-				g_free (fnval[i]);
-				g_free (fnval[i + 1]);
-				i++;
-			}
-
-			fnval[j++] = token;
-
-		}
-
-		fnval[j] = 0x00;
-	}
-
-	return fnval;
-}
-
 static gboolean
-compare_record_property (DMAPRecord * record, const gchar * property_name,
-			 const gchar * property_value)
+_compare_record_property (DmapRecord * record, const gchar * property_name,
+                          const gchar * property_value)
 {
+	gboolean accept = FALSE;
 	GParamSpec *pspec;
 	GValue value = { 0, };
 	/* Note that this string belongs to value and will not be freed explicitely. */
 	const gchar *str_value;
-	gboolean accept;
 
 	pspec = g_object_class_find_property (G_OBJECT_GET_CLASS (record),
 					      property_name);
 
-	if (pspec == NULL)
+	if (pspec == NULL) {
 		// Can't find the property in this record, so don't accept it.
-		return FALSE;
+		goto done;
+	}
 
 	// Get the property value as a GValue set to the type of this
 	// property.
@@ -183,7 +109,7 @@ compare_record_property (DMAPRecord * record, const gchar * property_name,
 		accept = (g_value_get_boolean (&value) &&
 			  g_strcmp0 (property_value, "1") == 0);
 		g_value_unset (&value);
-		return accept;
+		goto done;
 	} else if (g_value_type_transformable
 		   (G_VALUE_TYPE (&value), G_TYPE_LONG)) {
 		// Prefer integer conversion.
@@ -194,13 +120,13 @@ compare_record_property (DMAPRecord * record, const gchar * property_name,
 				("Failed to convert value into long for property %s",
 				 property_name);
 			g_value_unset (&value);
-			return FALSE;
+			goto done;
 		}
 		g_debug ("Compare %s (long): %ld %s", property_name, g_value_get_long (&dest), property_value);
 		accept = (g_value_get_long (&dest) ==
 			  strtol (property_value, NULL, 10));
 		g_value_unset (&value);
-		return accept;
+		goto done;
 	} else if (g_value_type_transformable
 		   (G_VALUE_TYPE (&value), G_TYPE_STRING)) {
 		// Use standard transform functions from GLib (note that these
@@ -214,7 +140,7 @@ compare_record_property (DMAPRecord * record, const gchar * property_name,
 				("Failed to convert value into string for property %s",
 				 property_name);
 			g_value_unset (&value);
-			return FALSE;
+			goto done;
 		}
 		str_value = g_value_dup_string (&dest);
 		g_value_reset (&value);
@@ -224,7 +150,7 @@ compare_record_property (DMAPRecord * record, const gchar * property_name,
 	} else {
 		g_warning ("Attempt to compare unhandled type");
 		g_value_unset (&value);
-		return FALSE;
+		goto done;
 	}
 
 	// Only arrive here if we are handling strings.
@@ -234,33 +160,30 @@ compare_record_property (DMAPRecord * record, const gchar * property_name,
 		accept = TRUE;
 	} else if (str_value == NULL && property_value == NULL) {
 		accept = TRUE;
-	} else {
-		accept = FALSE;
 	}
 
 	// This will destroy str_value since it belongs to value.
 	g_value_unset (&value);
 
+done:
 	return accept;
 }
 
 static void
-apply_filter (gpointer id, DMAPRecord * record, gpointer data)
+_apply_filter (guint id, DmapRecord * record, gpointer data)
 {
+	g_assert(DMAP_IS_RECORD (record));
+
 	FilterData *fd;
 	gboolean accept = FALSE;
 
 	const gchar *query_key;
 	const gchar *query_value;
 
-	g_return_if_fail (record != NULL);
-	g_return_if_fail (G_IS_OBJECT (record));
-
 	fd = data;
 	if (fd->filter_def == NULL) {
-		g_hash_table_insert (fd->ht, GUINT_TO_POINTER (id),
-				     g_object_ref (record));
-		return;
+		g_hash_table_insert (fd->ht, GUINT_TO_POINTER(id), g_object_ref (record));
+		goto done;
 	}
 
 	GSList *list, *filter;
@@ -268,15 +191,14 @@ apply_filter (gpointer id, DMAPRecord * record, gpointer data)
 	for (list = fd->filter_def; list != NULL; list = list->next) {
 		for (filter = list->data; filter != NULL;
 		     filter = filter->next) {
-			DMAPDbFilterDefinition *def = filter->data;
+			DmapDbFilterDefinition *def = filter->data;
 			const gchar *property_name;
 
 			query_key = def->key;
 			query_value = def->value;
 
 			if (g_strcmp0 (query_key, "dmap.itemid") == 0) {
-				if (GPOINTER_TO_UINT (id) ==
-				    strtoul (query_value, NULL, 10)) {
+				if (id == strtoul (query_value, NULL, 10)) {
 					accept = TRUE;
 					break;
 				}
@@ -285,37 +207,44 @@ apply_filter (gpointer id, DMAPRecord * record, gpointer data)
 			// Use only the part after the last dot.
 			// For instance, dmap.songgenre becomes songgenre.
 			property_name = strrchr (query_key, '.');
-			if (property_name == NULL)
+			if (property_name == NULL) {
 				property_name = query_key;
-			else
+			} else {
 				//Don't include the dot in the property name.
 				property_name++;
+			}
 
-			accept = compare_record_property (record,
+			accept = _compare_record_property (record,
 							  property_name,
 							  query_value);
 
-			if (def->negate)
+			if (def->negate) {
 				accept = !accept;
+			}
 
 			// If we accept this value, then quit looking at this 
 			// group (groups are always OR)
-			if (accept)
+			if (accept) {
 				break;
+			}
 		}
 		// Don't look any further, because groups are AND between 
 		// each other, the first FALSE means FALSE at the end.
-		if (!accept)
+		if (!accept) {
 			break;
+		}
 	}
 	if (accept) {
-		g_hash_table_insert (fd->ht, GUINT_TO_POINTER (id),
+		g_hash_table_insert (fd->ht, GUINT_TO_POINTER(id),
 				     g_object_ref (record));
 	}
+
+done:
+	return;
 }
 
 GHashTable *
-dmap_db_apply_filter (DMAPDb * db, GSList * filter_def)
+dmap_db_apply_filter (DmapDb * db, GSList * filter_def)
 {
 	GHashTable *ht;
 	FilterData data;
@@ -326,7 +255,7 @@ dmap_db_apply_filter (DMAPDb * db, GSList * filter_def)
 	data.filter_def = filter_def;
 	data.ht = ht;
 
-	dmap_db_foreach (db, (GHFunc) apply_filter, &data);
+	dmap_db_foreach (db, (DmapIdRecordFunc) _apply_filter, &data);
 
 	return data.ht;
 }

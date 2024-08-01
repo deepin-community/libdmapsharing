@@ -1,6 +1,0 @@
-usr/lib/*/pkgconfig
-usr/share/gtk-doc
-usr/include
-usr/lib/*/libdmapsharing-3.0.so
-usr/share/gir-1.0/*.gir
-usr/share/vala/vapi

@@ -1,4 +1,4 @@
-/*   FILE: vala-dmap-db.vala -- A DMAPContainerDb implementation in Vala
+/*   FILE: vala-dmap-db.vala -- A DmapContainerDb implementation in Vala
  * AUTHOR: W. Michael Petullo <mike@flyn.org>
  *   DATE: 21 December 2010 
  *
@@ -20,28 +20,27 @@
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
 
-private class ValaDMAPContainerDb : GLib.Object, DMAP.ContainerDb {
+private class ValaDmapContainerDb : GLib.Object, Dmap.ContainerDb {
 	// A dumb database that stores everything in an array
 
-	/* FIXME: What is with this unowned? */
-	private Gee.ArrayList<unowned DMAP.Record> db = new Gee.ArrayList<unowned DMAP.Record> ();
+	private Gee.ArrayList<Dmap.ContainerRecord> db = new Gee.ArrayList<Dmap.ContainerRecord> ();
 
 	public int64 count () {
 		return db.size;
 	}
 
-	public void @foreach (GLib.HFunc func) {
+	public void @foreach (Dmap.IdContainerRecordFunc func) {
 		int i;
 		for (i = 0; i < db.size; i++) {
-			func (i.to_pointer (), db[i]);
+			func (i, db[i]);
 		}
 	}
 
-	public unowned DMAP.ContainerRecord lookup_by_id (uint id) {
+	public Dmap.ContainerRecord lookup_by_id (uint id) {
 		GLib.error ("lookup_by_id not implemented");
 	}
 
-	public void add (DMAP.ContainerRecord record) {
+	public void add (Dmap.ContainerRecord record) {
 		GLib.error ("add not implemented");
 	}
 }

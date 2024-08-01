@@ -18,8 +18,8 @@
  * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
  */
 
-#ifndef __DMAP_CONTAINER_DB_H
-#define __DMAP_CONTAINER_DB_H
+#ifndef _DMAP_CONTAINER_DB_H
+#define _DMAP_CONTAINER_DB_H
 
 #include <glib-object.h>
 
@@ -27,54 +27,73 @@
 
 G_BEGIN_DECLS
 /**
+ * SECTION: dmap-container-db
+ * @short_description: An interface for DMAP container databases.
+ *
+ * #DmapContainerDb provides an interface for DMAP container databases.
+ */
+
+/**
  * DMAP_TYPE_CONTAINER_DB:
  *
- * The type for #DMAPContainerDb.
+ * The type for #DmapContainerDb.
  */
 #define DMAP_TYPE_CONTAINER_DB		 (dmap_container_db_get_type ())
 /**
  * DMAP_CONTAINER_DB:
  * @o: Object which is subject to casting.
  *
- * Casts a #DMAPContainerDb or derived pointer into a (DMAPContainerDb*) 
+ * Casts a #DmapContainerDb or derived pointer into a (DmapContainerDb*) 
  * pointer. Depending on the current debugging level, this function may invoke
  * certain runtime checks to identify invalid casts.
  */
 #define DMAP_CONTAINER_DB(o)		 (G_TYPE_CHECK_INSTANCE_CAST ((o), \
-				          DMAP_TYPE_CONTAINER_DB, DMAPContainerDb))
+				          DMAP_TYPE_CONTAINER_DB, DmapContainerDb))
 /**
- * IS_DMAP_CONTAINER_DB:
+ * DMAP_IS_CONTAINER_DB:
  * @o: Instance to check for being a %DMAP_TYPE_CONTAINER_DB.
  *
  * Checks whether a valid #GTypeInstance pointer is of type
  * %DMAP_TYPE_CONTAINER_DB.
  */
-#define IS_DMAP_CONTAINER_DB(o)		 (G_TYPE_CHECK_INSTANCE_TYPE ((o), \
+#define DMAP_IS_CONTAINER_DB(o)		 (G_TYPE_CHECK_INSTANCE_TYPE ((o), \
 				          DMAP_TYPE_CONTAINER_DB))
 /**
  * DMAP_CONTAINER_DB_GET_INTERFACE:
- * @o: a #DMAPContainerDb instance.
+ * @o: a #DmapContainerDb instance.
  *
- * Get the interface structure associated to a #DMAPContainerDb instance.
+ * Get the interface structure associated to a #DmapContainerDb instance.
  *
  * Returns: pointer to object interface structure.
  */
 #define DMAP_CONTAINER_DB_GET_INTERFACE(o) (G_TYPE_INSTANCE_GET_INTERFACE ((o), \
-				            DMAP_TYPE_CONTAINER_DB, DMAPContainerDbIface))
-typedef struct _DMAPContainerDb DMAPContainerDb;
-typedef struct _DMAPContainerDbIface DMAPContainerDbIface;
+				            DMAP_TYPE_CONTAINER_DB, DmapContainerDbInterface))
+typedef struct _DmapContainerDb DmapContainerDb;
+typedef struct _DmapContainerDbInterface DmapContainerDbInterface;
 
-struct _DMAPContainerDbIface
+/**
+ * DmapIdContainerRecordFunc:
+ * @id: a DMAP container record ID
+ * @record: a #DmapContainerRecord
+ * @user_data: (closure): user data
+ *
+ * The type of function passed to dmap_container_db_foreach().
+ */
+typedef void (*DmapIdContainerRecordFunc) (guint id,
+                                           DmapContainerRecord *record,
+                                           gpointer user_data);
+
+struct _DmapContainerDbInterface
 {
 	GTypeInterface parent;
 
-	void (*add) (DMAPContainerDb * db, DMAPContainerRecord * record);
+	void (*add) (DmapContainerDb *db, DmapContainerRecord *record, GError **error);
 
-	DMAPContainerRecord *(*lookup_by_id) (DMAPContainerDb * db, guint id);
+	DmapContainerRecord *(*lookup_by_id) (DmapContainerDb * db, guint id);
 
-	void (*foreach) (DMAPContainerDb * db, GHFunc func, gpointer data);
+	void (*foreach) (DmapContainerDb * db, DmapIdContainerRecordFunc func, gpointer data);
 
-	  gint64 (*count) (DMAPContainerDb * db);
+	  gint64 (*count) (DmapContainerDb * db);
 };
 
 GType dmap_container_db_get_type (void);
@@ -83,33 +102,35 @@ GType dmap_container_db_get_type (void);
  * dmap_container_db_add:
  * @db: A container database.
  * @record: A record.
+ * @error: return location for a GError, or NULL.
  *
  * Add a record to the database.
  */
-void dmap_container_db_add (DMAPContainerDb * db,
-                            DMAPContainerRecord * record);
+void dmap_container_db_add (DmapContainerDb * db,
+                            DmapContainerRecord * record,
+                            GError **error);
 
 /**
  * dmap_container_db_lookup_by_id:
  * @db: A container database.
  * @id: A record ID.
  *
- * Returns: the database record corresponding to @id. This record should
+ * Returns: (transfer full): the database record corresponding to @id. This record should
  * be unrefed when no longer required.
  */
-DMAPContainerRecord *dmap_container_db_lookup_by_id (DMAPContainerDb * db,
+DmapContainerRecord *dmap_container_db_lookup_by_id (DmapContainerDb * db,
 						     guint id);
 
 /**
  * dmap_container_db_foreach:
  * @db: A container database.
- * @func: The function to apply to each record in the database.
+ * @func: (scope call): The function to apply to each record in the database.
  * @data: User data to pass to the function.
  *
  * Apply a function to each record in a container database.
  */
-void dmap_container_db_foreach (DMAPContainerDb * db,
-				GHFunc func, gpointer data);
+void dmap_container_db_foreach (DmapContainerDb * db,
+				DmapIdContainerRecordFunc func, gpointer data);
 
 /**
  * dmap_container_db_count:
@@ -117,8 +138,8 @@ void dmap_container_db_foreach (DMAPContainerDb * db,
  *
  * Returns: the number of records in the database.
  */
-gulong dmap_container_db_count (DMAPContainerDb * db);
+gulong dmap_container_db_count (DmapContainerDb * db);
 
-#endif /* __DMAP_CONTAINER_DB_H */
+#endif /* _DMAP_CONTAINER_DB_H */
 
 G_END_DECLS

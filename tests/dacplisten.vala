@@ -20,14 +20,44 @@
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
 
-private class ValaDACPPlayer : GLib.Object, DACP.Player {
+private class ValaDacpPlayer : GLib.Object, Dmap.ControlPlayer {
+	private ulong _playing_time;
+	private bool _shuffle_state;
+	private Dmap.ControlRepeatState _repeat_state;
+	private Dmap.ControlPlayState _play_state;
+	private ulong _volume;
 
-	unowned DAAP.Record now_playing_record () {
+	public ulong playing_time {
+		get { return this._playing_time; }
+		set { this._playing_time = value; }
+	}
+
+	public virtual bool shuffle_state {
+		get { return this._shuffle_state; }
+		set { this._shuffle_state = value; }
+	}
+
+	public virtual Dmap.ControlRepeatState repeat_state {
+		get { return this._repeat_state; }
+		set { this._repeat_state = value; }
+	}
+
+	public virtual Dmap.ControlPlayState play_state {
+		get { return this._play_state; }
+		set { this._play_state = value; }
+	}
+
+	public virtual ulong volume {
+		get { return this._volume; }
+		set { this._volume = value; }
+	}
+
+	unowned Dmap.AvRecord now_playing_record () {
 		stdout.printf ("Now playing record request received\n");
 		return null;
 	}
 
-	unowned uchar[] now_playing_artwork (uint width, uint height) {
+	unowned string now_playing_artwork (uint width, uint height) {
 		stdout.printf ("Now playing artwork request received\n");
 		return null;
 	}
@@ -52,22 +82,22 @@ private class ValaDACPPlayer : GLib.Object, DACP.Player {
 		stdout.printf ("Cue clear request received\n");
 	}
 
-	void cue_play (GLib.List records, uint index) {
+	void cue_play (GLib.List<Dmap.Record> records, uint index) {
 		stdout.printf ("Cue play request received\n");
 	}
 }
 
-private class DACPListener : GLib.Object {
-	private DMAP.Db db;
-	private DMAP.ContainerDb container_db;
-	private DACP.Player player;
-	private DACP.Share share;
+private class DacpListener : GLib.Object {
+	private Dmap.Db db;
+	private Dmap.ContainerDb container_db;
+	private Dmap.ControlPlayer player;
+	private Dmap.ControlShare share;
 
-	public DACPListener () {
-		db = new ValaDMAPDb ();
-		container_db = new ValaDMAPContainerDb ();
-		player = new ValaDACPPlayer ();
-		share = new DACP.Share ("dacplisten", player, db, container_db);
+	public DacpListener () {
+		db = new ValaDmapDb ();
+		container_db = new ValaDmapContainerDb ();
+		player = new ValaDacpPlayer ();
+		share = new Dmap.ControlShare ("dacplisten", player, db, container_db);
 
 		share.remote_found.connect ((service_name, display_name) => {
 			stdout.printf ("Found remote: %s, %s\n", service_name, display_name);
@@ -84,7 +114,7 @@ private class DACPListener : GLib.Object {
 int main (string[] args) {     
 	var loop = new GLib.MainLoop ();
 
-	var dacplistener = new DACPListener ();
+	var dacplistener = new DacpListener ();
 
 	loop.run ();
 

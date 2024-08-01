@@ -18,14 +18,11 @@
  * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
  */
 
-#include <string.h>
-#include <gst/gst.h>
-
-#include "dmap-gst-input-stream.h"
 #include "gst-util.h"
+#include "dmap-transcode-stream.h"
 
 gboolean
-pads_compatible (GstPad * pad1, GstPad * pad2)
+gst_util_pads_compatible (GstPad * pad1, GstPad * pad2)
 {
 	gboolean fnval;
 	GstCaps *res, *caps1, *caps2;

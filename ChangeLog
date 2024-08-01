@@ -1,16 +1,559 @@
-commit ecee3cc737d748d45ef4524b2c19a0fdf7c73804
+commit 9eadd4a2ab454201437612b54e7df760431d8e0b
 Author: W. Michael Petullo <mike@flyn.org>
-Date:   Wed Jul 8 20:44:16 2020 -0400
+Date:   Thu Jul 20 19:57:01 2023 -0500
 
     Bump version number
+    
+    Signed-off-by: W. Michael Petullo <mike@flyn.org>
 
-commit 8ae6a51e6dfc939961485a5d9b374d081edaeec0
+commit 12b9a3689fcff8eff179474eb2a47f6df683d950
+Author: W. Michael Petullo <mike@flyn.org>
+Date:   Thu Jul 20 19:45:20 2023 -0500
+
+    doc/Makefile.am: add human-written XML files to EXTRA_DIST
+    
+    Signed-off-by: W. Michael Petullo <mike@flyn.org>
+
+commit db65745e23d2e6b4747f3da2e252107377b2c835
+Author: W. Michael Petullo <mike@flyn.org>
+Date:   Thu Jul 20 19:21:38 2023 -0500
+
+    Fix Vala tests
+    
+    Signed-off-by: W. Michael Petullo <mike@flyn.org>
+
+commit 503562fc9c18f46562c78755383b5185bf5493e9
+Author: W. Michael Petullo <mike@flyn.org>
+Date:   Thu Jul 20 18:23:04 2023 -0500
+
+    Use g-ir-scanner output as input to vapigen
+    
+    The older tool named vala-gen-introspect is deprecated in favor of the
+    more general g-ir-scanner. See:
+    
+    https://wiki.gnome.org/Projects/Vala/Bindings
+    
+    Signed-off-by: W. Michael Petullo <mike@flyn.org>
+
+commit ca0c03de04cccf9a22f0e264a35fd7136469d8d9
+Merge: 258567d f860a34
+Author: W. Michael Petullo <mike@flyn.org>
+Date:   Sun Apr 23 16:44:08 2023 +0000
+
+    Merge branch 'drop-forcing-O2' into 'master'
+    
+    configure.ac: Don't force CFLAGS=-O2
+    
+    See merge request GNOME/libdmapsharing!6
+
+commit f860a34cef08251c065a9aa547aaa6ec01f3d85d
+Author: Matt Turner <mattst88@gmail.com>
+Date:   Thu Mar 30 12:36:51 2023 -0400
+
+    configure.ac: Don't force CFLAGS=-O2
+    
+    Without specifying CFLAGS, autotools defaults to -g -O2, so this code
+    adds a redundant -O2 (-g -O2 -O2). When specifying CFLAGS, this
+    overrides the user's choice—e.g. CFLAGS="-O1" leads to the build using
+    -O1 -O2.
+
+commit 258567d8d8ed2385bba5833f21a8fc060fe44d2b
+Author: W. Michael Petullo <mike@flyn.org>
+Date:   Tue Mar 28 16:55:27 2023 -0500
+
+    Make use of pedansee-conf-gobject
+    
+    Signed-off-by: W. Michael Petullo <mike@flyn.org>
+
+commit 0cdd8c8399bbffd71da53dfc336c8abc4146154f
+Author: W. Michael Petullo <mike@flyn.org>
+Date:   Fri Mar 24 16:41:50 2023 -0500
+
+    libdmapsharing4.spec: edit to match bumped release number
+    
+    Signed-off-by: W. Michael Petullo <mike@flyn.org>
+
+commit 2bcf6286fc81ff9c964e5b1bfe918c01a18e98c4
+Author: W. Michael Petullo <mike@flyn.org>
+Date:   Fri Mar 24 16:24:52 2023 -0500
+
+    Bump version number
+    
+    Signed-off-by: W. Michael Petullo <mike@flyn.org>
+
+commit 2bcb47e5ae12f72c64fb02f2ada566bde3fe52b7
+Author: W. Michael Petullo <mike@flyn.org>
+Date:   Fri Mar 24 16:05:53 2023 -0500
+
+    Initialize a value that might not be initialized by g_object_get
+    
+    Signed-off-by: W. Michael Petullo <mike@flyn.org>
+
+commit a1ee9e6ad45513db545423fc3c72ba4fe7bf56b3
+Author: W. Michael Petullo <mike@flyn.org>
+Date:   Thu Mar 9 11:57:51 2023 -0600
+
+    configure.ac: add "AC_SEARCH_LIBS([floorf], [m])" for FreeBSD
+    
+    Signed-off-by: W. Michael Petullo <mike@flyn.org>
+
+commit f9802a2a622b74392b0db044f38c76795c8f1429
+Author: W. Michael Petullo <mike@flyn.org>
+Date:   Thu Mar 9 11:40:35 2023 -0600
+
+    libdmapsharing/Makefile.am: rename check target to check-local
+    
+    This avoids the warning from GNU make (or the failure from POSIX make)
+    related to redefining check. See:
+    
+    https://www.gnu.org/software/automake/manual/html_node/Extending.html
+    
+    Signed-off-by: W. Michael Petullo <mike@flyn.org>
+
+commit 371d56c1025b93b10530f5843beee4ddd2a40b5d
+Author: W. Michael Petullo <mike@flyn.org>
+Date:   Thu Mar 9 11:36:15 2023 -0600
+
+    libdmapsharing/Makefile.am: remove dmap-enums.h from maintained_headers
+    
+    Signed-off-by: W. Michael Petullo <mike@flyn.org>
+
+commit 452458baa27bf2dbbe5162b1f2b5e3c2ebd9d531
+Author: W. Michael Petullo <mike@flyn.org>
+Date:   Thu Mar 9 11:31:34 2023 -0600
+
+    libdmapsharing/Makefile.am: avoid cyclic dependencies when building enums
+    
+    Signed-off-by: W. Michael Petullo <mike@flyn.org>
+
+commit c2853f8421477fce67e4b6f278738e02ac6b1d25
+Author: W. Michael Petullo <mike@flyn.org>
+Date:   Thu Mar 9 11:18:30 2023 -0600
+
+    libdmapsharing/Makefile.am: simplify use of glib-mkenums after experimenting with FreeBSD
+    
+    Signed-off-by: W. Michael Petullo <mike@flyn.org>
+
+commit 6d8447a1a22e01c0836b7596b1a2389660c807d9
+Author: W. Michael Petullo <mike@flyn.org>
+Date:   Thu Mar 9 09:58:33 2023 -0600
+
+    libdmapsharing/Makefile.am: drop use of patsubst, which is not POSIX
+    
+    Signed-off-by: W. Michael Petullo <mike@flyn.org>
+
+commit d354c84a4a3ff445e4a8dbe70af0a53ffd9cf828
+Author: W. Michael Petullo <mike@flyn.org>
+Date:   Tue Mar 7 15:34:32 2023 -0600
+
+    Update GTK-Doc markup to include summaries
+    
+    Signed-off-by: W. Michael Petullo <mike@flyn.org>
+
+commit 289841575882df43ff55834b02a02bf273b5e779
+Author: W. Michael Petullo <mike@flyn.org>
+Date:   Thu Mar 2 20:44:42 2023 -0600
+
+    dmap-structure.c: replace g_memdup, which glib2 replaced with g_memdup2
+    
+    Signed-off-by: W. Michael Petullo <mike@flyn.org>
+
+commit d5e2480ab2d8ce774dd32e1cbd2ef2a3e329f5af
+Author: W. Michael Petullo <mike@flyn.org>
+Date:   Thu Mar 2 20:34:18 2023 -0600
+
+    Replace deprecated portions of autotools files
+    
+    Signed-off-by: W. Michael Petullo <mike@flyn.org>
+
+commit dcf24e182f9e1c1a28b284fec6cd1f3c5651d113
+Author: W. Michael Petullo <mike@flyn.org>
+Date:   Thu Mar 2 20:15:27 2023 -0600
+
+    .gitlab-ci.yml: revert check work
+    
+    Signed-off-by: W. Michael Petullo <mike@flyn.org>
+
+commit 2481cad1921de5335b24659d20a533524010a4b2
+Author: W. Michael Petullo <mike@flyn.org>
+Date:   Thu Mar 2 20:08:29 2023 -0600
+
+    .gitlab-ci.yml: break up make targets into separate commands
+    
+    This seems to break both locally and on GitLab's CI:
+    
+            make all check clean all dist
+    
+    Signed-off-by: W. Michael Petullo <mike@flyn.org>
+
+commit 91d96a2fd97acd2095087ce385956208a28997c2
+Author: W. Michael Petullo <mike@flyn.org>
+Date:   Thu Mar 2 19:32:48 2023 -0600
+
+    .gitlab-ci.yml: mkdir /run/dbus for dbus-daemon
+    
+    Signed-off-by: W. Michael Petullo <mike@flyn.org>
+
+commit 921b6de3aa7c96566203fb9d8aa04d8362bac760
+Author: W. Michael Petullo <mike@flyn.org>
+Date:   Thu Mar 2 19:29:10 2023 -0600
+
+    .gitlab-ci.yml: mkdir /run for dbus-daemon
+    
+    Signed-off-by: W. Michael Petullo <mike@flyn.org>
+
+commit a8e9d9ace915e4233558beed66c3ad483f2969a4
+Author: W. Michael Petullo <mike@flyn.org>
+Date:   Thu Mar 2 19:25:17 2023 -0600
+
+    .gitlab-ci.yml: fix dbus-daemon install
+    
+    Signed-off-by: W. Michael Petullo <mike@flyn.org>
+
+commit a45dd03898d40f2a1da5a8d9e3c717a279ac2d15
+Author: W. Michael Petullo <mike@flyn.org>
+Date:   Thu Mar 2 19:19:32 2023 -0600
+
+    .gitlab-ci.yml: install dbus-daemon before running it
+    
+    Signed-off-by: W. Michael Petullo <mike@flyn.org>
+
+commit 78ec17868a305f275ce5bb8da0f31476b8b477f3
+Author: W. Michael Petullo <mike@flyn.org>
+Date:   Thu Mar 2 19:14:48 2023 -0600
+
+    .gitlab-ci.yml: run dbus-daemon before avahi
+    
+    Signed-off-by: W. Michael Petullo <mike@flyn.org>
+
+commit eda7e534f810d558d12d611a4fdda3ba20ef1135
+Author: W. Michael Petullo <mike@flyn.org>
+Date:   Thu Mar 2 18:59:15 2023 -0600
+
+    .gitlab-ci.yml: do not assume systemd is installed
+    
+    Signed-off-by: W. Michael Petullo <mike@flyn.org>
+
+commit 2cd49197d202f5f47ffb25ef8145b480fe3b53b0
+Author: W. Michael Petullo <mike@flyn.org>
+Date:   Thu Mar 2 18:29:52 2023 -0600
+
+    .gitlab-ci.yml: run avahi-daemon for unit tests
+    
+    Signed-off-by: W. Michael Petullo <mike@flyn.org>
+
+commit d0363fd18b7b87eb6d8512d8f3fc5223a4f4b9e6
+Author: W. Michael Petullo <mike@flyn.org>
+Date:   Thu Mar 2 18:22:25 2023 -0600
+
+    .gitlab-ci.yml: install avahi for Fedora unit tests
+    
+    Signed-off-by: W. Michael Petullo <mike@flyn.org>
+
+commit 817577a4e429cd1c1316097149319acb78828d77
+Author: W. Michael Petullo <mike@flyn.org>
+Date:   Thu Mar 2 14:30:47 2023 -0600
+
+    .gitlab-ci.yml: test check target
+    
+    Signed-off-by: W. Michael Petullo <mike@flyn.org>
+
+commit 9d45d71108444ecf1e0b53670d9929218692a502
+Merge: a176ed2 c7463c0
+Author: W. Michael Petullo <mike@flyn.org>
+Date:   Thu Mar 2 14:18:23 2023 -0600
+
+    Merge branch 'mdbk-ated'
+
+commit c7463c07a92e0698768cd11a9b442585ea57c716
+Merge: a4412f4 aeeb944
+Author: W. Michael Petullo <mike@flyn.org>
+Date:   Thu Mar 2 13:50:04 2023 +0000
+
+    Merge branch 'owntone' into 'mdbk-ated'
+    
+    Add more content codes
+    
+    See merge request GNOME/libdmapsharing!5
+
+commit aeeb944e8121b6cce09f223ab31e5d219f242c76
+Author: Sébastien Noel <sebastien@twolife.be>
+Date:   Thu Mar 2 09:23:58 2023 +0100
+
+    Add more content codes
+
+commit a176ed271a2fb8098e56b55ebd80d7cb1ab5a188
+Author: W. Michael Petullo <mike@flyn.org>
+Date:   Wed Mar 1 15:29:53 2023 -0600
+
+    doc/Makefile.am: simplify
+    
+    Signed-off-by: W. Michael Petullo <mike@flyn.org>
+
+commit 4bc8864a418aef9d5c91a7dbfcba9ed2453a7d71
+Author: W. Michael Petullo <mike@flyn.org>
+Date:   Wed Mar 1 11:43:52 2023 -0600
+
+    doc/Makefile.am: replace regular expression with explicit header files in IGNORE_HFILES
+    
+    https://gitlab.gnome.org/GNOME/libdmapsharing/issues/49
+    
+    Signed-off-by: W. Michael Petullo <mike@flyn.org>
+
+commit a4412f4c3733834af8f653af4db4c54160980804
+Author: W. Michael Petullo <mike@flyn.org>
+Date:   Wed Mar 1 11:24:35 2023 -0600
+
+    Add MDBK and ATED content codes
+    
+    https://gitlab.gnome.org/GNOME/libdmapsharing/issues/54
+    
+    Signed-off-by: W. Michael Petullo <mike@flyn.org>
+
+commit bf871a7f69efbbe6a7fdb0da890aee9b7657071e
+Author: W. Michael Petullo <mike@flyn.org>
+Date:   Tue Feb 21 16:36:11 2023 -0600
+
+    .gitlab-ci.yml: use Debian unstable for libsoup3
+    
+    Signed-off-by: W. Michael Petullo <mike@flyn.org>
+
+commit 68117e50d66282e9d9f2d79560e843af356ec381
+Author: W. Michael Petullo <mike@flyn.org>
+Date:   Tue Feb 21 16:33:25 2023 -0600
+
+    .gitlab-ci.yml: build using Debian, not Ubuntu for i386
+    
+    Signed-off-by: W. Michael Petullo <mike@flyn.org>
+
+commit 0ebcf5a424b59fa93e5b487f6db29bcd53c263bc
+Merge: 27cac25 a748466
+Author: W. Michael Petullo <mike@flyn.org>
+Date:   Mon Feb 13 14:52:08 2023 +0000
+
+    Merge branch 'add-nullable-annotation' into 'master'
+    
+    Add (nullable) annotation for parameters which can be empty
+    
+    See merge request GNOME/libdmapsharing!4
+
+commit 27cac2550127ecf5e19dcc7190bd41eec3368ae8
+Author: W. Michael Petullo <mike@flyn.org>
+Date:   Fri Feb 10 13:34:51 2023 -0600
+
+    .gitlab-ci.yml: install make and git on Ubuntu to build
+    
+    The last change allowed me to identify the real problem. Thus revert the
+    configure flag and instead ensure git and make are present.
+    
+    Signed-off-by: W. Michael Petullo <mike@flyn.org>
+
+commit 895ba7b5e97a9927b272a073b7bbbfd0f21f94b9
+Author: W. Michael Petullo <mike@flyn.org>
+Date:   Fri Feb 10 13:29:09 2023 -0600
+
+    .gitlab-ci.yml: disable dependency tracking on Ubuntu
+    
+    The GitLab CI system was saying:
+    
+    config.status: error: in `/builds/GNOME/libdmapsharing':
+    config.status: error: Something went wrong bootstrapping makefile fragments
+        for automatic dependency tracking.  If GNU make was not used, consider
+        re-running the configure script with MAKE="gmake" (or whatever is
+        necessary).  You can also try re-running configure with the
+        '--disable-dependency-tracking' option to at least be able to build
+        the package (albeit without support for automatic dependency tracking).
+    See `config.log' for more details
+    
+    This aims to fix that.
+    
+    Signed-off-by: W. Michael Petullo <mike@flyn.org>
+
+commit 8ba46fbc26157b634c2a7d71b4307f81c16a53a4
+Author: W. Michael Petullo <mike@flyn.org>
+Date:   Fri Feb 10 12:41:12 2023 -0600
+
+    Bump version number
+    
+    Signed-off-by: W. Michael Petullo <mike@flyn.org>
+
+commit 54765bcf37acb31d9bbff5240cf8b888b662513a
+Author: W. Michael Petullo <mike@flyn.org>
+Date:   Wed Dec 14 20:43:27 2022 -0600
+
+    .gitlab-ci.yml: fix Ubuntu libsoup-3.0-dev package name
+    
+    Signed-off-by: W. Michael Petullo <mike@flyn.org>
+
+commit 3f9dc3afeb5e9892c73c253000300b388c688575
+Author: W. Michael Petullo <mike@flyn.org>
+Date:   Wed Dec 14 20:41:24 2022 -0600
+
+    .gitlab-ci.yml: use ubuntu:jammy
+    
+    Signed-off-by: W. Michael Petullo <mike@flyn.org>
+
+commit 9d335e03cd3a6dc32b8c525744ab5faf7e00d8d3
+Author: W. Michael Petullo <mike@flyn.org>
+Date:   Wed Dec 14 20:39:32 2022 -0600
+
+    .gitlab-ci.yml: use riscv64/ubuntu:jammy
+    
+    Signed-off-by: W. Michael Petullo <mike@flyn.org>
+
+commit 3c6cba7d7f709f0393ce8a7838e7385824891003
+Author: W. Michael Petullo <mike@flyn.org>
+Date:   Wed Dec 14 20:37:39 2022 -0600
+
+    .gitlab-ci.yml: use ubuntu:jammy
+    
+    Signed-off-by: W. Michael Petullo <mike@flyn.org>
+
+commit d1dfa07f16384ce940010e88d97b5eae5b72d2c5
+Author: W. Michael Petullo <mike@flyn.org>
+Date:   Wed Dec 14 20:37:01 2022 -0600
+
+    .gitlab-ci.yml: use i386/ubuntu:jammy
+    
+    Signed-off-by: W. Michael Petullo <mike@flyn.org>
+
+commit d2cf68760865da5fbab5b4a2b5811bdf01eb91ee
+Author: W. Michael Petullo <mike@flyn.org>
+Date:   Wed Dec 14 20:36:01 2022 -0600
+
+    .gitlab-ci.yml: use i386/ubuntu:latest
+    
+    Signed-off-by: W. Michael Petullo <mike@flyn.org>
+
+commit 3a540fd97520effd2ee09bd8a940261ca70fee5e
+Author: W. Michael Petullo <mike@flyn.org>
+Date:   Wed Dec 14 20:33:36 2022 -0600
+
+    .gitlab-ci.yml: use i386/ubuntu:22.04.1 (drop .1)
+    
+    Signed-off-by: W. Michael Petullo <mike@flyn.org>
+
+commit 99521e52ad98f3a1402c165d61a0aeb7f79305d7
+Author: W. Michael Petullo <mike@flyn.org>
+Date:   Wed Dec 14 20:28:33 2022 -0600
+
+    .gitlab-ci.yml: use i386/ubuntu:22.04.1 so that libsoup3 is available
+    
+    Signed-off-by: W. Michael Petullo <mike@flyn.org>
+
+commit 17212ce0f644f78f77ca86055f77b8b7addcf250
+Author: W. Michael Petullo <mike@flyn.org>
+Date:   Wed Dec 14 20:21:35 2022 -0600
+
+    .gitlab-ci.yml: use i386/ubuntu:20.04
+    
+    Signed-off-by: W. Michael Petullo <mike@flyn.org>
+
+commit ecab1f8c2ce1035223c7745a06d46ac710cc097e
+Author: W. Michael Petullo <mike@flyn.org>
+Date:   Wed Dec 14 20:18:53 2022 -0600
+
+    vala-dmap-db.vala: fix object ownership issue
+    
+    Signed-off-by: W. Michael Petullo <mike@flyn.org>
+
+commit 231370306844da834d2c6c92362ea4298888deaa
+Author: W. Michael Petullo <mike@flyn.org>
+Date:   Wed Dec 14 20:18:18 2022 -0600
+
+    Round of cleanup with pedansee
+    
+    Signed-off-by: W. Michael Petullo <mike@flyn.org>
+
+commit 887d0a4631e66c39c00f9eca9bb91acf25fb11d0
+Author: W. Michael Petullo <mike@flyn.org>
+Date:   Wed Dec 14 20:00:07 2022 -0600
+
+    .gitlab-ci.yml: use Ubuntu Fossa
+    
+    Signed-off-by: W. Michael Petullo <mike@flyn.org>
+
+commit d407bc700bc751b3e4bfd7e5dc1f8f31f76e5b13
+Author: W. Michael Petullo <mike@flyn.org>
+Date:   Wed Dec 14 19:48:25 2022 -0600
+
+    libdmapsharing4.spec: depend on libsoup3
+    
+    Signed-off-by: W. Michael Petullo <mike@flyn.org>
+
+commit 2e04754ea7c19a1f29c10c8adc29ae81b7e5ad94
+Author: W. Michael Petullo <mike@flyn.org>
+Date:   Wed Dec 14 19:37:45 2022 -0600
+
+    .gitlab-ci.yml: update to install libsoup3
+    
+    Signed-off-by: W. Michael Petullo <mike@flyn.org>
+
+commit 38b7dc34b9a78629d02bf6e4e3a1b95c66b49120
+Author: W. Michael Petullo <mike@flyn.org>
+Date:   Wed Dec 14 10:28:16 2022 -0600
+
+    libdmapsharing/Makefile.am: replace Soup-2.4 with Soup-3.0
+    
+    Signed-off-by: W. Michael Petullo <mike@flyn.org>
+
+commit 06bb563f9898fa9a5c03a6d7f0eb00d33701ea0d
+Author: W. Michael Petullo <mike@flyn.org>
+Date:   Wed Dec 14 10:21:28 2022 -0600
+
+    Migrate to libsoup3
+    
+    Signed-off-by: W. Michael Petullo <mike@flyn.org>
+
+commit 99ececdef85d60c40d546a477673db8be4be9b9c
+Author: W. Michael Petullo <mike@flyn.org>
+Date:   Wed Dec 14 10:17:34 2022 -0600
+
+    Update TODO
+    
+    Signed-off-by: W. Michael Petullo <mike@flyn.org>
+
+commit 43d27411f74c54948c78430d4da655abf1c85c3d
+Author: W. Michael Petullo <mike@flyn.org>
+Date:   Sun Dec 11 16:07:06 2022 -0600
+
+    Update TODO
+    
+    Signed-off-by: W. Michael Petullo <mike@flyn.org>
+
+commit 910447caf0efc3756977d976880e78ae4d6422fd
+Author: W. Michael Petullo <mike@flyn.org>
+Date:   Sun Dec 11 16:06:59 2022 -0600
+
+    Remove extraneous #includes
+    
+    Signed-off-by: W. Michael Petullo <mike@flyn.org>
+
+commit a74846680549fa0b4a9839962251b0b5bc4171da
+Author: crvi <crvisqr@gmail.com>
+Date:   Sun Mar 21 01:20:43 2021 +0530
+
+    Add (nullable) annotation for parameters which can be empty
+
+commit a78d2951a4fa15696e1f4880050a4a9ae144348f
+Author: W. Michael Petullo <mike@flyn.org>
+Date:   Wed Jul 8 18:18:40 2020 -0400
+
+    libdmapsharing4.spec: edit to match bumped release number
+
+commit 2afa64da9304a0271419580268dd64b2b9420d92
 Author: W. Michael Petullo <mike@flyn.org>
 Date:   Wed Jul 8 08:01:40 2020 -0400
 
     configure.ac: restore SO_VERSION
 
-commit 4cea856b597b2549d26ddb9ac418ec4f8647811c
+commit db6a7d351ea66ae52aec40314b74166aee88f794
+Author: W. Michael Petullo <mike@flyn.org>
+Date:   Tue Jul 7 21:55:36 2020 -0400
+
+    dmap-transcode-stream.c: add missing ..._get_instance_private()
+
+commit cd73cfbdb624c43b3b6dcacc30bd5a174569d777
 Author: W. Michael Petullo <mike@flyn.org>
 Date:   Tue Jul 7 20:11:50 2020 -0400
 
@@ -18,7 +561,7 @@ Date:   Tue Jul 7 20:11:50 2020 -0400
     
     Closes #44.
 
-commit 1f6530f6275366e94f447d903b79457126eec439
+commit 6d933bd2faff96d5d4cdce21f7e2690139e4456b
 Author: W. Michael Petullo <mike@flyn.org>
 Date:   Mon Jul 6 00:37:48 2020 -0500
 
@@ -26,7 +569,7 @@ Date:   Mon Jul 6 00:37:48 2020 -0500
     
     Closes #35.
 
-commit 71a69d232b2f396d024a38ddce8d2f7aef9e4d21
+commit bfac0ce6dff5967733c1ef71d55b20d8367009f2
 Author: W. Michael Petullo <mike@flyn.org>
 Date:   Mon Jul 6 00:16:45 2020 -0500
 
@@ -34,71 +577,122 @@ Date:   Mon Jul 6 00:16:45 2020 -0500
     
     Closes #35.
 
-commit a1550bd256f4b7e2d474c2202889eeed1df27573
+commit 584e98b98f618bd5c7117f68f6edff8e546178f9
 Author: W. Michael Petullo <mike@flyn.org>
 Date:   Mon Jul 6 00:06:31 2020 -0500
 
     Drop support for ancient Avahi version
 
-commit 7314703f7315863e199237b9e9d2e1580140aa9c
-Author: W. Michael Petullo <mike@flyn.org>
-Date:   Sun Jul 5 20:59:04 2020 -0500
-
-    Update libdmapsharing.spec
-
-commit c3b63a86f5d09c1136b83894bfb56c41a4c20ab7
-Author: W. Michael Petullo <mike@flyn.org>
-Date:   Sun Jul 5 20:48:53 2020 -0500
-
-    .gitlab-ci.yml: libdmapsharing.spec, not libdmapsharing4.spec for this branch
-
-commit cb7d28326ec1191287a5c2a388111f1a9201f5a7
-Author: W. Michael Petullo <mike@flyn.org>
-Date:   Sun Jul 5 20:46:55 2020 -0500
-
-    .gitlab-ci.yml: synchronize with master
-
-commit 56531091f2ffe35b531386985651ce427548158d
+commit a2dd977b4332d65109b5a705b181febc09184880
 Author: W. Michael Petullo <mike@flyn.org>
 Date:   Sun Jul 5 20:35:37 2020 -0500
 
     configure.ac: restore support for silent builds
 
-commit 4d95e1274e04e3da7d405bdede28db23d042ee59
+commit bec937254d1692920e2ce2a4cbcd1c15699a4b14
 Author: W. Michael Petullo <mike@flyn.org>
 Date:   Sun Jul 5 20:05:18 2020 -0500
 
-    Clean up configure.ac and remove support for howl
+    Clean up configure.ac
 
-commit e856041aed50ce8c6662525e20f8f421b8679d1b
+commit c131e17ab12b08ed4aa1089669f8181d013b1925
 Author: W. Michael Petullo <mike@flyn.org>
-Date:   Sun Jul 5 16:14:48 2020 -0500
+Date:   Sun Jul 5 18:19:50 2020 -0500
+
+    configure.ac: fix use of AS_VERSION
+
+commit 6734a176df389487c093449594ccac526142b9ab
+Author: W. Michael Petullo <mike@flyn.org>
+Date:   Sun Jul 5 16:05:59 2020 -0500
 
     Fix build failure when GStreamer absent
     
     Closes #30.
 
-commit 8457fb24fd799ee2e885435d1c35677aecf140cd
+commit 8ab51da7ead31f78657f362b84ddab1442ed3640
+Author: W. Michael Petullo <mike@flyn.org>
+Date:   Sun Jul 5 14:55:54 2020 -0500
+
+    Remove support for howl
+    
+    Use Avahi in most instances and dns_sd for environments with tight
+    resource constraints.
+    
+    Closes #36.
+
+commit 5f021a95443cb7467d1351f03dac6d756d0a30ec
 Author: W. Michael Petullo <mike@flyn.org>
 Date:   Sun Jul 5 14:29:06 2020 -0500
 
     Remove config.h.in from Git
 
-commit 4ea844eba493531c02696969ac8d840632236f33
+commit 6d7b4d16df4ec7881cd2b6efe303e791de198b7c
 Author: W. Michael Petullo <mike@flyn.org>
 Date:   Sun Jul 5 14:26:50 2020 -0500
 
     Update config.h.in following use of GLIB_VERSION_*_*
 
-commit e75f1561b9dc3556d0ffd0fe8609797903e0e289
+commit ca1a87f30b3dc25c386a1cc356f35fb71433d0e6
 Author: W. Michael Petullo <mike@flyn.org>
-Date:   Sat Jul 4 19:20:59 2020 -0500
+Date:   Sun Jul 5 14:19:13 2020 -0500
 
-    Use g_cclosure_marshal_generic rather than generated marshaling routines
-    
-    Closes #37.
+    .gitlab-ci.yml: fix syntax
 
-commit 12eb2a246ed365d3dc997d416069a53493ad38ed
+commit ea91d1405779321b596fe4eb8ccbc60a5d981df4
+Author: W. Michael Petullo <mike@flyn.org>
+Date:   Sun Jul 5 14:14:06 2020 -0500
+
+    .gitlab-ci.yml: adjust how we specify RPM artifacts
+
+commit ef2f577376cb3f8576cacec1dbd52da9a5bdfb8a
+Author: W. Michael Petullo <mike@flyn.org>
+Date:   Sun Jul 5 14:01:43 2020 -0500
+
+    .gitlab-ci.yml: update artifact globs
+
+commit 48c1b5c11485bb3ab917677eb581f6aa21301328
+Author: W. Michael Petullo <mike@flyn.org>
+Date:   Sun Jul 5 13:31:47 2020 -0500
+
+    .gitlab-ci.yml: remove --disable-tests in build-fedora to satisfy "make dist"
+
+commit 480bb15b22af351ad9456a5366dee440fb2d1f3d
+Author: W. Michael Petullo <mike@flyn.org>
+Date:   Sun Jul 5 13:23:06 2020 -0500
+
+    .gitlab-ci.yml: remove gee from build-ubuntu
+
+commit 3e96337857b26baec127afa5bf5e2c0f4b06371f
+Author: W. Michael Petullo <mike@flyn.org>
+Date:   Sun Jul 5 13:21:57 2020 -0500
+
+    .gitlab-ci.yml: install Vala for building RPM
+
+commit f7eafab26debb6d603af207b704773e4ef6b3328
+Author: W. Michael Petullo <mike@flyn.org>
+Date:   Sun Jul 5 13:12:57 2020 -0500
+
+    .gitlab-ci.yml: add make to build-fedora
+
+commit 642ecb380a629369bddf8048ec56a7e900090697
+Author: W. Michael Petullo <mike@flyn.org>
+Date:   Sun Jul 5 13:10:09 2020 -0500
+
+    .gitlab-ci.yml: simplify build-fedora
+
+commit 1114ce187430f66ab35cb9c403d632eaa382b77b
+Author: W. Michael Petullo <mike@flyn.org>
+Date:   Sun Jul 5 12:54:18 2020 -0500
+
+    .gitlab-ci.yml: add config.log to artifacts
+
+commit 380ca9a4a955fd4bcf88a8507f3ca6b13f3b1a3f
+Author: W. Michael Petullo <mike@flyn.org>
+Date:   Sun Jul 5 12:35:11 2020 -0500
+
+    .gitlab-ci.yml: build Fedora RPM and preserve as artifact
+
+commit 396db93bbe5d83f286a24b0f42427f4048f20e86
 Author: W. Michael Petullo <mike@flyn.org>
 Date:   Sun Jul 5 09:43:04 2020 -0500
 
@@ -106,21 +700,57 @@ Date:   Sun Jul 5 09:43:04 2020 -0500
     
     Closes #25.
 
-commit 96b9a5b8c722eb883a5beadd5306616d9af3bad2
+commit e22fb2ac88e5d74d30ab691886bbc85a95d89ebe
 Author: W. Michael Petullo <mike@flyn.org>
-Date:   Fri Jul 3 14:37:16 2020 -0500
+Date:   Sat Jul 4 19:20:59 2020 -0500
 
-    Fix more warnings after adding --enable-more-warnings configure option
+    Use g_cclosure_marshal_generic rather than generated marshaling routines
     
-    Closes #34.
+    Closes #37.
 
-commit e99c2c9966faf3e65ed555b05e4f5385f7b6f73a
+commit 082aaacc3702ef267720ef3890200bc5a4194165
+Author: W. Michael Petullo <mike@flyn.org>
+Date:   Fri Jul 3 18:37:12 2020 -0500
+
+    .gitlab-ci.yml: revert Alpine attempt
+
+commit b9c100c08db140e2a0134a55a7e4e4f5cb08ff27
+Author: W. Michael Petullo <mike@flyn.org>
+Date:   Fri Jul 3 18:09:48 2020 -0500
+
+    .gitlab-ci.yml: go with x86_64 Alpine for now
+
+commit f295baadb9084baca79d48cfac7672aa8099ad77
+Author: W. Michael Petullo <mike@flyn.org>
+Date:   Fri Jul 3 18:07:41 2020 -0500
+
+    .gitlab-ci.yml: fix typo
+
+commit c4357e5c9f68db13986b450a60607434ea38c2cd
+Author: W. Michael Petullo <mike@flyn.org>
+Date:   Fri Jul 3 18:06:42 2020 -0500
+
+    .gitlab-ci.yml: adjust ARM values
+
+commit 2c3279b8c912cab55c0ad889cf288c13ee7deb0c
+Author: W. Michael Petullo <mike@flyn.org>
+Date:   Fri Jul 3 17:54:56 2020 -0500
+
+    .gitlab-ci.yml: fix syntax
+
+commit 88deb2348685a8bd9c6cb59df2e302dbad3572e2
+Author: W. Michael Petullo <mike@flyn.org>
+Date:   Fri Jul 3 17:49:16 2020 -0500
+
+    .gitlab-ci.yml: add build test using Alpine/musl
+
+commit 81a8ffc007a37575ec855c1557311dca78b1ea9b
 Author: W. Michael Petullo <mike@flyn.org>
 Date:   Fri Jul 3 17:12:09 2020 -0500
 
     .gitlab-ci.yml: build with --enable-more-warnings
 
-commit 89c0f018a8268c4743b9f6677f894595885ffde0
+commit a0fcba3e7a0e53abe94359308393e4965f44c0dc
 Author: W. Michael Petullo <mike@flyn.org>
 Date:   Fri Jul 3 14:40:37 2020 -0500
 
@@ -128,45 +758,69 @@ Date:   Fri Jul 3 14:40:37 2020 -0500
     
     Closes #14.
 
-commit 4240943eaee30e8c69b77bcb707e937efce4cbd9
+commit 2403bf4e27cdcbbc5fc1b03dc86ec9dae896c027
 Author: W. Michael Petullo <mike@flyn.org>
-Date:   Fri Jul 3 11:06:38 2020 -0500
+Date:   Fri Jul 3 14:37:16 2020 -0500
 
-    Fix building without Vala
-
-commit 108b6fd8477bba73591008a9a432e17625087e13
-Author: W. Michael Petullo <mike@flyn.org>
-Date:   Fri Jul 3 09:46:55 2020 -0500
-
-    .gitignore: better handle more generated files
-
-commit 654ee271b26204ff71b1ebf48d3a2f36294b10ac
-Author: W. Michael Petullo <mike@flyn.org>
-Date:   Fri Jul 3 09:43:12 2020 -0500
-
-    .gitignore: more adjustments
+    Fix more warnings after adding --enable-more-warnings configure option
     
-    Closes 14.
+    Closes #34.
 
-commit 1ac3b82a1149f24305bbde2b7292d508b6527ce6
+commit 2d8030a98282be1409a660ee2fa23761863dd4a6
 Author: W. Michael Petullo <mike@flyn.org>
-Date:   Fri Jul 3 09:19:20 2020 -0500
+Date:   Fri Jul 3 11:22:01 2020 -0500
 
-    Fix GCC warnings with Avahi backend enabled
+    Do not try to build dpapview when GTK3 is not present
+    
+    Closes #33.
 
-commit c79350d96410e75c83921c62fd4296aa5c0c35fd
+commit 8abd00a63e77757e3611c4488f70ade6d46a1203
 Author: W. Michael Petullo <mike@flyn.org>
-Date:   Fri Jul 3 09:07:43 2020 -0500
+Date:   Fri Jul 3 10:52:53 2020 -0500
 
-    Fix a number of GCC warnings
+    libdmapsharing/Makefile.am: add dmap-transcode-stream-private.h
 
-commit 67842a5f5ffa420aed045b70727ec09f08a3b4a7
+commit b904be93a499874e79995f887b700f854545b34f
+Author: W. Michael Petullo <mike@flyn.org>
+Date:   Fri Jul 3 10:51:39 2020 -0500
+
+    Update docs to reflect changes to GStreamer-related symbols
+
+commit efd03791347814a545b2de2111a83ecbac0a8d9f
+Author: W. Michael Petullo <mike@flyn.org>
+Date:   Fri Jul 3 10:47:18 2020 -0500
+
+    Remove "make clean" from end of check target in libdmapsharing/Makefile.am
+    
+    This was causing the subsequent build of check in tests/ to fail,
+    because clean removes the generated dmap-enum.{c,h}.
+
+commit c4f5365d9891e3d5876a1a59a6f8b48143a6ddf3
+Author: W. Michael Petullo <mike@flyn.org>
+Date:   Fri Jul 3 10:35:10 2020 -0500
+
+    Modify visibility of symbols related to transcoding
+    
+    1. Rename "dmap-gst-input*stream*" to "dmap-transcode-stream*"
+    2. Move declaration of ...new_buffer_cb to private header
+    3. Remove GStreamer headers from dmap-transcode-stream.h
+    4. Make GStreamer a private requirement in .pc file
+
+commit 1f2208160640c06b01b5efc152ce2e7fc6a452bd
+Author: W. Michael Petullo <mike@flyn.org>
+Date:   Fri Jul 3 09:29:39 2020 -0500
+
+    .gitignore: add *.c.gcov
+    
+    Closes #14.
+
+commit 19ece8e065c24ba7ec57be05a0ea57bed4531a97
 Author: W. Michael Petullo <mike@flyn.org>
 Date:   Thu Jul 2 18:45:11 2020 -0500
 
     .gitlab-ci.yml: build with --disable-tests, as tests fail -Werror
 
-commit 6722ba079b7a798bcf157cc732770ee24cd742dd
+commit 31c7eff7a183b05ddd56fbc41395dff490d42891
 Author: W. Michael Petullo <mike@flyn.org>
 Date:   Thu Jul 2 18:13:05 2020 -0500
 
@@ -174,13 +828,20 @@ Date:   Thu Jul 2 18:13:05 2020 -0500
     
     Closes #14.
 
-commit 93a926f484409bbe49dc020c6afa9099ffec7183
+commit a9288d7ba6f758be03341f80ed413c7896d46372
 Author: W. Michael Petullo <mike@flyn.org>
 Date:   Thu Jul 2 17:50:42 2020 -0500
 
     .gitlab-ci.yml: use -Werror and build for both Avahi and dns_sd
 
-commit 0ffbb3447bd6ba9eff30379083f1a028337dfafb
+commit 78cf4e0d552b9d7ffe9cfea11b2e40e1314cb5ce
+Merge: abe7ff4 3b197d4
+Author: W. Michael Petullo <mike@flyn.org>
+Date:   Thu Jul 2 16:19:47 2020 -0500
+
+    Merge branch 'master' of gitlab.gnome.org:GNOME/libdmapsharing
+
+commit abe7ff4ac4d1f5ca81c50c1845a84ff4db4d1e3c
 Author: W. Michael Petullo <mike@flyn.org>
 Date:   Thu Jul 2 16:19:10 2020 -0500
 
@@ -188,103 +849,130 @@ Date:   Thu Jul 2 16:19:10 2020 -0500
     
     Closes #28.
 
-commit 8502d88f13032a589644fd9b2edebed5ca26379c
+commit 3b197d4728027dbcf799e77971186b96e90abd3d
+Merge: 0cfc3d7 ae626d5
 Author: W. Michael Petullo <mike@flyn.org>
-Date:   Tue Jun 30 21:52:28 2020 -0500
+Date:   Thu Jul 2 20:54:25 2020 +0000
+
+    Merge branch 'wip/jtojnar/gstapp-dep' into 'master'
+    
+    Fix vala build with gstapp in non-standard location
+    
+    Closes #11.
+    
+    See merge request GNOME/libdmapsharing!2
+
+commit ae626d52883ff2fb004a8c5595bff8e222587b5d
+Author: Jan Tojnar <jtojnar@gmail.com>
+Date:   Thu Jul 2 05:07:19 2020 +0200
+
+    build: Fix vala build with gstapp in non-standard location
+    
+    Some of the headers include `<gst/app/gstappsink.h>`, which is part of gstreamer-app-1.0,
+    the pkg-config file only lists gstreamer-1.0 as a dependency, though. It is not guaranteed
+    that they share the installation paths and indeed it is not the case on NixOS, resulting
+    in build failure.
+    
+    Let's properly declare our dependencies so that vala-gen-introspect can find them.
+    
+    https://gitlab.gnome.org/GNOME/libdmapsharing/issues/11
+
+commit 0cfc3d79e6eb26d7e392abc5de57036e4aa0d06f
+Author: W. Michael Petullo <mike@flyn.org>
+Date:   Tue Jun 30 22:47:06 2020 -0500
+
+    Update libdmapsharing4.spec
+
+commit 8c8075cfafbcabe44aac84b52d31d9c4c93341a3
+Author: W. Michael Petullo <mike@flyn.org>
+Date:   Tue Jun 30 21:41:11 2020 -0500
 
     .gitlab-ci.yml: add Avahi daemon for unit tests
 
-commit c968b099315a82f387bcf36c2883a93a5c72b77a
+commit 7b8d2a2077458e6a7967c45a0f76ab29a1351e85
+Author: W. Michael Petullo <mike@flyn.org>
+Date:   Tue Jun 30 21:39:20 2020 -0500
+
+    dmap-connection.c: fix unit test to include '\0' in size
+
+commit e24d4d9d129c828f91091b7143a4ff3ea2372248
 Author: W. Michael Petullo <mike@flyn.org>
 Date:   Tue Jun 30 21:24:30 2020 -0500
 
     tests/Makefile.am: add $(CHECK_LIBS) to unit_test_LDADD
 
-commit 07a807a7567ce62b0f8b3ab337d1056f847edbdf
-Author: W. Michael Petullo <mike@flyn.org>
-Date:   Tue Jun 30 20:45:31 2020 -0500
-
-    .gitlab-ci.yml: really fix GTK2 package
-
-commit ba123c1b344f12fff7875e2ff6ff1398551e1671
-Author: W. Michael Petullo <mike@flyn.org>
-Date:   Tue Jun 30 20:43:59 2020 -0500
-
-    .gitlab-ci.yml: fix GTK2 package
-
-commit 1469d8fb115997bdf1748c83f17ca7fbb871dddc
-Author: W. Michael Petullo <mike@flyn.org>
-Date:   Tue Jun 30 20:39:29 2020 -0500
-
-    .gitlab-ci.yml: install GTK2, not GTK3 for this branch
-
-commit 9357d22bb6ea0a9833ff3990ce42cc0a9d374533
-Author: W. Michael Petullo <mike@flyn.org>
-Date:   Tue Jun 30 20:16:13 2020 -0500
-
-    Avoid ck_assert_ptr_null(); CI hosts have old version of check
-
-commit a9f8483664498c619855a84b7f829254801f6300
-Author: W. Michael Petullo <mike@flyn.org>
-Date:   Tue Jun 30 20:12:56 2020 -0500
-
-    .gitlab-ci.yml: fix at eoan to get i386
-
-commit edf0a322a64b6a62e3dbb97d8d374b47ad0d2d65
-Author: W. Michael Petullo <mike@flyn.org>
-Date:   Tue Jun 30 20:06:20 2020 -0500
-
-    .gitlab-ci.yml: use groovy to get newer check
-
-commit 379b09cba9723d6ec6314804f7696d3749a6d2da
+commit e4f575037331e34ccaf2b2db30ce459b784768f0
 Author: W. Michael Petullo <mike@flyn.org>
 Date:   Tue Jun 30 19:44:11 2020 -0500
 
     Fix a warning about ignoring fgets' return value
 
-commit d12dc31aacf52959627d7bfa4b2f1987e8910411
+commit f8d6b53ad1195db4bf35d020303a1d6da0a55fa9
 Author: W. Michael Petullo <mike@flyn.org>
-Date:   Tue Jun 30 19:29:24 2020 -0500
+Date:   Tue Jun 30 20:12:56 2020 -0500
 
-    Make use of G_GSSIZE_FORMAT
+    .gitlab-ci.yml: fix at eoan to get i386
 
-commit 7c7998ad69e9b3b30a62d50aeaef6d5f3244575f
+commit 800c345de21da19b3710ff20b22543c7de01d518
+Author: W. Michael Petullo <mike@flyn.org>
+Date:   Tue Jun 30 20:16:13 2020 -0500
+
+    Avoid ck_assert_ptr_null(); CI hosts have old version of check
+
+commit 90ce9d39830edfeac9907fc90c3034221c579f45
+Author: W. Michael Petullo <mike@flyn.org>
+Date:   Tue Jun 30 20:28:59 2020 -0500
+
+    Ensure vala is optional
+
+commit 9a83e643f12dc2daad23efab0c96c2cca100a99a
+Author: W. Michael Petullo <mike@flyn.org>
+Date:   Tue Jun 30 19:16:17 2020 -0500
+
+    Fix declarations that were wrong for 32-bit builds
+
+commit 6e57659bd81e70e5c419276507a6618fb5c9047f
 Author: W. Michael Petullo <mike@flyn.org>
 Date:   Tue Jun 30 18:59:38 2020 -0500
 
     .gitlab-ci.yml: install libavahi-client-dev
 
-commit 5ff47ad0c40d4fc4fad2804091279e2dcc87c6ac
+commit edf5742664e3b4324fcfa052c6e651afe56dbc6e
 Author: W. Michael Petullo <mike@flyn.org>
 Date:   Tue Jun 30 18:50:29 2020 -0500
 
     .gitlab-ci.yml: make use of autogen.sh and install required packages
 
-commit 5ab8c128773d4cee06392ea9cdd89d40ce5dd6f6
+commit 79d689e9875ebab03ff2d9ad0566a0e8500e9c88
 Author: W. Michael Petullo <mike@flyn.org>
 Date:   Tue Jun 30 18:44:22 2020 -0500
 
     .gitlab-ci.yml: select 32-bit image and set DEBIAN_FRONTEND=noninteractive
 
-commit b17a8247fa52d334e3f6e4c00e01c5853cef0807
+commit 33c6c8bae253bcacc4279a6134352771b334bcbb
 Author: W. Michael Petullo <mike@flyn.org>
 Date:   Tue Jun 30 18:27:28 2020 -0500
 
     Start to configure CI
 
-commit 01c83785e81d248110de6d476b8835b757f99ec9
+commit c4f3b677ffe7fb347429653999110f0e6ea61a1f
 Author: W. Michael Petullo <mike@flyn.org>
-Date:   Tue Jun 30 16:32:24 2020 -0500
+Date:   Tue Jun 30 16:23:59 2020 -0500
 
-    Bump version number
+    Remove use of G_GNUC_FALLTHROUGH
+    
+    G_GNUC_FALLTHROUGH was not available until glib-2.60. Avoiding it allows
+    libdmapsharing to compile in more places.
+    
+    Closes 17.
 
-commit a98a90241e4aace55788027f56b6916f655311c1
+commit 782287c269b2a4075d3bba06d624296ef72a062e
 Author: W. Michael Petullo <mike@flyn.org>
 Date:   Tue Jun 30 16:12:27 2020 -0500
 
-    configure.ac: clean up some messaging
+    configure.ac: clean up some messaging in
 
-commit 29d3c18a1b3c68a7876e1982d7c6e684846e8961
+commit 9eb0b1610de28dce0e4743e2fff746065171a2f7
 Author: W. Michael Petullo <mike@flyn.org>
 Date:   Tue Jun 30 15:55:32 2020 -0500
 
@@ -292,23 +980,17 @@ Date:   Tue Jun 30 15:55:32 2020 -0500
     
     Closes #25.
 
-commit a68aa9cda17863589e58201a106b11712b3adfc7
+commit 2111cb95060feebaeaa3e4bf66da86b38da07fbf
 Author: W. Michael Petullo <mike@flyn.org>
-Date:   Tue Jun 30 15:01:46 2020 -0400
+Date:   Tue Jun 30 08:01:04 2020 -0500
 
-    Update vala/*/libdmapsharing-3.0-uninstalled.excludes to suit --disable-tests
+    Fix some autotools warnings
 
-commit 895205fecdb99b6b9f8065213b50e8f99a070852
-Author: W. Michael Petullo <mike@flyn.org>
-Date:   Tue Jun 30 14:46:49 2020 -0400
-
-    Backport form 4.0 series: fix some autotools warnings
-
-commit 332c8f0b88ee583c5bbb77778b7a597fe0f85854
+commit 856bf619ed33559473ef588024929cf116889e1e
 Author: W. Michael Petullo <mike@flyn.org>
 Date:   Tue Jun 30 07:35:13 2020 -0500
 
-    Backport from 4.0 series: adjust how building tests works
+    Adjust how building tests works
     
     Previously, the presence of the check library led to libdmapsharing
     building its unit tests and supporting facilities, despite the separate
@@ -317,35 +999,1141 @@ Date:   Tue Jun 30 07:35:13 2020 -0500
     --disable-tests disables all tests, whether unit tests or sample programs,
     and it ensure not test facilities exist in libdmapsharing.
 
-commit 9aaed0a037ee6a6f4f7536fd8dbdf1fa846cd450
+commit a124a4cdaa196f0e65d6d2db994c4748385f7849
 Author: W. Michael Petullo <mike@flyn.org>
-Date:   Tue Jun 30 14:19:15 2020 -0400
+Date:   Tue Jun 30 06:48:53 2020 -0500
 
-    Small changes to fix Vala build
+    Make use of G_GSIZE_FORMAT and G_GSSIZE_FORMAT
 
-commit 00cf08da2f973f1279393d0a5e21cc4418400878
+commit ba935754a4f733ca62abf6dcb0478cb490e517c8
 Author: W. Michael Petullo <mike@flyn.org>
-Date:   Tue Jun 30 13:58:58 2020 -0400
+Date:   Tue Jun 30 06:31:23 2020 -0500
 
-    Fix size of array to match received string
+    Bump version number in anticipation of next release
 
-commit 097f3dad98c11f7687eb798cd5987ec9be4afa60
+commit 05f4a59ce6a42e03a9da33c5bc8abdf94e50e433
 Author: W. Michael Petullo <mike@flyn.org>
-Date:   Tue Jun 30 13:55:41 2020 -0400
+Date:   Mon Jun 29 19:54:56 2020 -0500
+
+    Move from IS_DMAP... to DMAP_IS...
+
+commit 4a3a768ebe99beecc65b326d02f9f5cef187a5db
+Author: W. Michael Petullo <mike@flyn.org>
+Date:   Mon Jun 29 15:15:09 2020 -0500
+
+    Fix a format string that was wrong on 32-bit x86
+    
+    Closes #12.
+
+commit b7da0e056b29d117f79ad3a3a6be6e42950dce12
+Author: W. Michael Petullo <mike@flyn.org>
+Date:   Mon Jun 29 15:14:15 2020 -0500
+
+    Unconditionally include test-*.c in libdmapsharing
+    
+    These files used to be guarded by HAVE_CHECK. However, test-dmap-client.c
+    and test-dmap-server.c require them. Thus we now build them into
+    libdmapsharing unconditionally. Perhaps the name should involve
+    "reference" rather than "test," and perhaps these could be made a little
+    more useful in the general case.
+    
+    Closes #10.
+    Closes #13.
+
+commit f6518afa79342ef86253a1a0c7ea9b2699abe0c9
+Author: W. Michael Petullo <mike@flyn.org>
+Date:   Tue May 26 00:24:06 2020 -0400
+
+    Bump version number
+
+commit 2f5bee99c8fcd62cbe82dfdcb2061339aa54427c
+Author: W. Michael Petullo <mike@flyn.org>
+Date:   Tue May 26 00:16:51 2020 -0400
+
+    _actual_http_response_handler: check error rather than structure for NULL
+
+commit 57c153767f8479f210b1514804b40bcb5b6c2108
+Author: W. Michael Petullo <mike@flyn.org>
+Date:   Tue May 26 00:16:00 2020 -0400
+
+    dmap_control_share_class_init: add missing dmap_control_share_get_instance_private
+
+commit eed8c7c18f1e22003730fa3f406671d09600ba81
+Author: W. Michael Petullo <mike@flyn.org>
+Date:   Thu May 7 23:22:26 2020 -0500
+
+    Adjust tests and recent changes to satisfy pedansee
+    
+    Signed-off-by: W. Michael Petullo <mike@flyn.org>
+
+commit 816e0a1236306d8d33e3ec7cf44adce357cb744b
+Author: W. Michael Petullo <mike@flyn.org>
+Date:   Thu May 7 22:52:27 2020 -0500
+
+    Replace use of deprecated G_TYPE_INSTANCE_GET_PRIVATE
+    
+    Signed-off-by: W. Michael Petullo <mike@flyn.org>
+
+commit ce149c07716e96cd6cf26a5d7d4e3bd003b2c846
+Author: W. Michael Petullo <mike@flyn.org>
+Date:   Thu May 7 21:48:07 2020 -0500
+
+    Migrate dpapview from GTK-2.0 to GTK-3.0
+    
+    Signed-off-by: W. Michael Petullo <mike@flyn.org>
+
+commit 9ae04e25cf792f2f7b4d3bd537bc778d7b05eabf
+Author: W. Michael Petullo <mike@flyn.org>
+Date:   Mon Dec 30 21:36:11 2019 -0500
+
+    Make more functions static
+
+commit 3d79874066e1a1c1bba646135cf5fc5811b0eb55
+Author: W. Michael Petullo <mike@flyn.org>
+Date:   Sat Dec 7 20:51:29 2019 -0500
+
+    Replace use of deprecated G_CONST_RETURN
+    
+    Signed-off-by: W. Michael Petullo <mike@flyn.org>
+
+commit 8a240946b14884f529b55a7f9b89987544b7f760
+Author: W. Michael Petullo <mike@flyn.org>
+Date:   Fri Dec 6 22:35:08 2019 -0500
+
+    Update Vala code
+    
+    Signed-off-by: W. Michael Petullo <mike@flyn.org>
+
+commit 9d377f803d09cd3fb69f1d8db55e17f3575fa0b1
+Author: W. Michael Petullo <mike@flyn.org>
+Date:   Fri Dec 6 22:33:58 2019 -0500
+
+    Make some functions static
+    
+    Signed-off-by: W. Michael Petullo <mike@flyn.org>
+
+commit 0d1b035a19c7e6bd8c75d2b1c0b47ed696bd0a40
+Author: W. Michael Petullo <mike@flyn.org>
+Date:   Sun May 19 18:32:00 2019 -0400
+
+    Bump version number
+    
+    Signed-off-by: W. Michael Petullo <mike@flyn.org>
+
+commit 6ba1f300ca47f7bd43c8c852075054c5ee7362ef
+Author: W. Michael Petullo <mike@flyn.org>
+Date:   Sat May 18 02:22:48 2019 -0400
+
+    More work on Makefile's check target
+    
+    Signed-off-by: W. Michael Petullo <mike@flyn.org>
+
+commit cfae84b3532cf477449c50fbd1266c7c5f973a23
+Author: W. Michael Petullo <mike@flyn.org>
+Date:   Sat May 18 01:45:22 2019 -0400
+
+    Update check target in Makefile
+    
+    Signed-off-by: W. Michael Petullo <mike@flyn.org>
+
+commit b2fba67b932fe69f2daafb9291f4b6defd8ba116
+Author: W. Michael Petullo <mike@flyn.org>
+Date:   Fri May 17 23:02:33 2019 -0400
+
+    Revert to using guint, rather than gpointer, for id where possible
+    
+    Signed-off-by: W. Michael Petullo <mike@flyn.org>
+
+commit 59cac7e77ad6279bab5b09a156a561c50e1c3493
+Author: W. Michael Petullo <mike@flyn.org>
+Date:   Fri May 17 00:44:59 2019 -0400
+
+    Fix warnings from -Wextra
+    
+    Signed-off-by: W. Michael Petullo <mike@flyn.org>
+
+commit dfdc3adb23c40cf91e8094bfcc190333d52b65d3
+Author: W. Michael Petullo <mike@flyn.org>
+Date:   Sat May 11 18:10:47 2019 -0400
+
+    Fix some memory management
+    
+    Signed-off-by: W. Michael Petullo <mike@flyn.org>
+
+commit 6f49cb689dc72e45a74df649aa8b5627a11ec471
+Author: W. Michael Petullo <mike@flyn.org>
+Date:   Sun Apr 28 01:02:56 2019 -0400
+
+    Bump version number
+    
+    Signed-off-by: W. Michael Petullo <mike@flyn.org>
+
+commit 193042f6ced24ff6d5e3933feda4612e84206109
+Author: W. Michael Petullo <mike@flyn.org>
+Date:   Sun Apr 28 01:01:06 2019 -0400
+
+    Regenerate C from Vala using 0.44.3
+    
+    Signed-off-by: W. Michael Petullo <mike@flyn.org>
+
+commit 67281ed0c683d8321c99638b9aa1833dadb99d66
+Author: W. Michael Petullo <mike@flyn.org>
+Date:   Sun Apr 28 00:59:40 2019 -0400
+
+    Update Vala code to build with Vala 0.44.3
+    
+    Signed-off-by: W. Michael Petullo <mike@flyn.org>
+
+commit 22b71250a4f15784aedc001ccf25c96cfbe5f41d
+Author: W. Michael Petullo <mike@flyn.org>
+Date:   Sat Apr 27 21:07:12 2019 -0400
+
+    Bump version number
+    
+    Signed-off-by: W. Michael Petullo <mike@flyn.org>
+
+commit c61af81f60e43c50558ddbab0a9a69122b19d671
+Author: W. Michael Petullo <mike@flyn.org>
+Date:   Sun Mar 17 23:05:00 2019 -0400
+
+    Fix reference counting of thumbnails and hashes
+    
+    Signed-off-by: W. Michael Petullo <mike@flyn.org>
+
+commit 2d24eafaf536884e72091e71ee220500639bd6c4
+Author: W. Michael Petullo <mike@flyn.org>
+Date:   Sun Mar 17 22:07:26 2019 -0400
+
+    README-Porting: fix typo
+    
+    Signed-off-by: W. Michael Petullo <mike@flyn.org>
+
+commit cc6c2f87e23ea5b3857a1fce2e5e795c41b7998f
+Author: W. Michael Petullo <mike@flyn.org>
+Date:   Thu Jan 24 18:31:24 2019 -0500
+
+    Bump version number
+    
+    Signed-off-by: W. Michael Petullo <mike@flyn.org>
+
+commit 5c4cdf8c0eb9f644c8ab6e3b907f3bbb018802c1
+Author: W. Michael Petullo <mike@flyn.org>
+Date:   Fri Dec 14 18:36:28 2018 -0500
+
+    Replace use of deprecated g_type_class_add_private()
+    
+    Signed-off-by: W. Michael Petullo <mike@flyn.org>
+
+commit 351af0268ac4ddde451013ce9bc6ed60ffb41282
+Author: W. Michael Petullo <mike@flyn.org>
+Date:   Thu Dec 13 19:08:59 2018 -0500
+
+    Remove newlines from strings passed to g_warning and so on
+    
+    Signed-off-by: W. Michael Petullo <mike@flyn.org>
+
+commit 8654daabf1f027d153d973df3d31e001378cc32a
+Author: W. Michael Petullo <mike@flyn.org>
+Date:   Mon Sep 3 15:27:00 2018 -0400
+
+    Bump version number
+    
+    Signed-off-by: W. Michael Petullo <mike@flyn.org>
+
+commit 85fb4af93bbd6a83d55bacc033be6a698c08bf63
+Author: W. Michael Petullo <mike@flyn.org>
+Date:   Mon Sep 3 13:16:57 2018 -0400
+
+    Add DMAP_DB_ID_BAD value
+    
+    Signed-off-by: W. Michael Petullo <mike@flyn.org>
+
+commit f7e52a7f6951790aa3fef3c51cea615f929a1f2b
+Author: W. Michael Petullo <mike@flyn.org>
+Date:   Mon Sep 3 13:16:16 2018 -0400
+
+    Fix use of boxing in test-dmap-av-record.c and test-dmap-image-record.c
+    
+    Signed-off-by: W. Michael Petullo <mike@flyn.org>
+
+commit 54cb9f4a3edfd12845149c0f5abe117cb6cdc0a2
+Author: W. Michael Petullo <mike@flyn.org>
+Date:   Sun Sep 2 18:38:28 2018 -0400
+
+    Fix whitespace
+    
+    Signed-off-by: W. Michael Petullo <mike@flyn.org>
+
+commit 38927bc4aa91a30af230d983f27ad7fe2290dd06
+Author: W. Michael Petullo <mike@flyn.org>
+Date:   Sat Jul 21 23:18:01 2018 -0400
+
+    Bump version number
+    
+    Signed-off-by: W. Michael Petullo <mike@flyn.org>
+
+commit d15444a38e5de1658a667c6deaf7477a6a980d93
+Author: W. Michael Petullo <mike@flyn.org>
+Date:   Sat Jul 21 23:13:35 2018 -0400
+
+    Properly set name from service-name if NULL
+    
+    Signed-off-by: W. Michael Petullo <mike@flyn.org>
+
+commit ecdd1d9faadfdf76e042e80d3b302e1287c0b6a9
+Author: W. Michael Petullo <mike@flyn.org>
+Date:   Sat Jul 21 21:47:39 2018 -0400
+
+    More adjustments to error handling and related tests
+    
+    Signed-off-by: W. Michael Petullo <mike@flyn.org>
+
+commit 5baf82d1108f3e24fcb65967198741ad494bf70d
+Author: W. Michael Petullo <mike@flyn.org>
+Date:   Sat Jul 21 20:47:32 2018 -0400
+
+    Simplify writing DmapConnection tests with a template
+    
+    Signed-off-by: W. Michael Petullo <mike@flyn.org>
+
+commit a50bd508e7ee4d3daed41e36576c2f132d68f89c
+Author: W. Michael Petullo <mike@flyn.org>
+Date:   Sat Jul 21 17:17:00 2018 -0400
+
+    Improve error handling surrounding dmap_structure_parse and write unit tests
+    
+    Signed-off-by: W. Michael Petullo <mike@flyn.org>
+
+commit 38fc523265ff68f519ce6d8d49316d2a23b438eb
+Author: W. Michael Petullo <mike@flyn.org>
+Date:   Sat Jul 21 12:59:55 2018 -0400
+
+    Wire coverage testing into make check
+    
+    Signed-off-by: W. Michael Petullo <mike@flyn.org>
+
+commit 6da2b25e395f482cb456258ddff8dc6da5c1e854
+Author: W. Michael Petullo <mike@flyn.org>
+Date:   Sat Jul 21 10:31:40 2018 -0400
+
+    Rename guard in dmap-config.h.in
+    
+    Signed-off-by: W. Michael Petullo <mike@flyn.org>
+
+commit 60d2e9119a016cd6951ac978faa7ba7c570ead68
+Author: W. Michael Petullo <mike@flyn.org>
+Date:   Fri Jul 20 20:51:59 2018 -0400
+
+    Round of cleanup with pedansee
+    
+    Signed-off-by: W. Michael Petullo <mike@flyn.org>
+
+commit c70161682d88103f8e8095ae7fa61922e56185e1
+Author: W. Michael Petullo <mike@flyn.org>
+Date:   Fri Jul 20 19:13:09 2018 -0400
+
+    Declare _error_triggered as static
+    
+    Signed-off-by: W. Michael Petullo <mike@flyn.org>
+
+commit 51b19a19329c9a5b936c41f4994aca09602f6797
+Author: W. Michael Petullo <mike@flyn.org>
+Date:   Thu Jul 19 20:22:05 2018 -0400
+
+    Add new dmap_share_emit_error function
+    
+    Signed-off-by: W. Michael Petullo <mike@flyn.org>
+
+commit 721c95a1276196e7ac7fcdec0df056c21e73d122
+Author: W. Michael Petullo <mike@flyn.org>
+Date:   Wed Jul 18 23:07:17 2018 -0400
+
+    Adjust whitespace in test-dmap-server.c
+    
+    Signed-off-by: W. Michael Petullo <mike@flyn.org>
+
+commit 7f6b321537574caa419d18002f97c25999a11e1c
+Author: W. Michael Petullo <mike@flyn.org>
+Date:   Wed Jul 18 22:49:49 2018 -0400
+
+    Migrate more error handling in dmap-av-share.c to error signal
+    
+    Signed-off-by: W. Michael Petullo <mike@flyn.org>
+
+commit a91a3914568062fb38a540025b4d0c2364fa18c4
+Author: W. Michael Petullo <mike@flyn.org>
+Date:   Wed Jul 18 22:19:03 2018 -0400
+
+    Fix code tested by dmap_av_share_serve_publish_collision_test
+    
+    Signed-off-by: W. Michael Petullo <mike@flyn.org>
+
+commit 740e4ff72e9a67568646f4c8ddc6b166fe1162e7
+Author: W. Michael Petullo <mike@flyn.org>
+Date:   Wed Jul 18 21:50:17 2018 -0400
+
+    Another adjustment to assertions checking return and error
+    
+    Signed-off-by: W. Michael Petullo <mike@flyn.org>
+
+commit 9b4af687cf96ea625cacad0495cfc15ae91559a7
+Author: W. Michael Petullo <mike@flyn.org>
+Date:   Wed Jul 18 21:49:31 2018 -0400
+
+    Emit error on bad transcode format
+    
+    Signed-off-by: W. Michael Petullo <mike@flyn.org>
+
+commit cdb3b84005e3fb28d8fcbbb706e61af01f4e6322
+Author: W. Michael Petullo <mike@flyn.org>
+Date:   Thu Jul 12 00:24:55 2018 -0400
+
+    Fix assertion in dmap_record_factory_create
+    
+    Signed-off-by: W. Michael Petullo <mike@flyn.org>
+
+commit e87d5e7092de919b4d0d274bb28c590b93f81708
+Author: W. Michael Petullo <mike@flyn.org>
+Date:   Thu Jul 12 00:24:11 2018 -0400
+
+    Preface, e.g., CONTROL_REPEAT_NONE with DMAP_
+    
+    Signed-off-by: W. Michael Petullo <mike@flyn.org>
+
+commit e6d49f6235cce88836104ea9bf09024f09ab435d
+Author: W. Michael Petullo <mike@flyn.org>
+Date:   Thu Jul 12 00:22:57 2018 -0400
+
+    Update README-Porting after beginning to port Rhythmbox's DAAP plugin
+    
+    Signed-off-by: W. Michael Petullo <mike@flyn.org>
+
+commit d87acec0e38511633196050382052116484065e8
+Author: W. Michael Petullo <mike@flyn.org>
+Date:   Wed Jul 11 20:16:01 2018 -0400
+
+    Fix typo
+    
+    Signed-off-by: W. Michael Petullo <mike@flyn.org>
+
+commit 5fb9af6f969c5269bc8284b60cc577e916f6c631
+Author: W. Michael Petullo <mike@flyn.org>
+Date:   Thu Jul 5 15:24:31 2018 -0400
+
+    Add some assertions to ensure use of GError correct
+    
+    Signed-off-by: W. Michael Petullo <mike@flyn.org>
+
+commit 18828c7a0e1b3f6953c965b8d0d7dad064bee4af
+Author: W. Michael Petullo <mike@flyn.org>
+Date:   Sat Jun 30 14:11:43 2018 -0400
+
+    Clean up dmap_control_share_start_lookup() and dmap_control_share_stop_lookup()
+    
+    Signed-off-by: W. Michael Petullo <mike@flyn.org>
+
+commit 9280988c27a7aee9e7e418322cc9462f5a4129b9
+Author: W. Michael Petullo <mike@flyn.org>
+Date:   Sat Jun 30 13:50:33 2018 -0400
+
+    Update documentation of dmap_record_factory_create() and dmap_share_serve()
+    
+    Signed-off-by: W. Michael Petullo <mike@flyn.org>
+
+commit 419db19757139cb76effec9189a61a5ca43b3fdd
+Author: W. Michael Petullo <mike@flyn.org>
+Date:   Sat Jun 30 13:31:53 2018 -0400
+
+    Remove unused _strsplit_using_quotes()
+    
+    Signed-off-by: W. Michael Petullo <mike@flyn.org>
+
+commit 828d325307a134cc7357f56bf8e55f1f545acb27
+Author: W. Michael Petullo <mike@flyn.org>
+Date:   Sat Jun 30 13:31:12 2018 -0400
+
+    Tighten a string size
+    
+    Signed-off-by: W. Michael Petullo <mike@flyn.org>
+
+commit 367aea07f762cef738666aa286ffd4d5289d9415
+Author: W. Michael Petullo <mike@flyn.org>
+Date:   Sat Jun 30 13:25:55 2018 -0400
+
+    Fix build
+    
+    Signed-off-by: W. Michael Petullo <mike@flyn.org>
+
+commit 88e7aa01250bd9f5d1b02da4eec1e7e92cf9479e
+Author: W. Michael Petullo <mike@flyn.org>
+Date:   Sun Jun 24 17:14:04 2018 -0400
+
+    Adjust use of functions which might set GError *
+    
+    Signed-off-by: W. Michael Petullo <mike@flyn.org>
+
+commit fdffef6bb716fd42ae1d5bbe18967f858c07fedc
+Author: W. Michael Petullo <mike@flyn.org>
+Date:   Sun Jun 24 16:34:05 2018 -0400
+
+    Add documentation of authenticate and error callbacks
+    
+    Signed-off-by: W. Michael Petullo <mike@flyn.org>
+
+commit cf9e8aa752c065c9df8f73da9126ac5cc9244a9a
+Author: W. Michael Petullo <mike@flyn.org>
+Date:   Sat Jun 9 19:53:49 2018 -0400
+
+    Add error signal to share; emit on error in main loop
+    
+    Signed-off-by: W. Michael Petullo <mike@flyn.org>
+
+commit 8981fab88347fcb74f17a7ee6eaf4daf103f5958
+Author: W. Michael Petullo <mike@flyn.org>
+Date:   Sat Jun 9 19:52:27 2018 -0400
+
+    Fix use of g_signal_emit_by_name
+    
+    Signed-off-by: W. Michael Petullo <mike@flyn.org>
+
+commit 3ede37dd83895de7341c1ac9174eec3ef07e6c4b
+Author: W. Michael Petullo <mike@flyn.org>
+Date:   Sat Jun 9 15:43:02 2018 -0400
+
+    Add error signal to connection; emit on error in main loop
+    
+    Signed-off-by: W. Michael Petullo <mike@flyn.org>
+
+commit 534cba21cc72cfe5bc3665d558dd1cd93bc38127
+Author: W. Michael Petullo <mike@flyn.org>
+Date:   Tue Apr 24 22:03:57 2018 -0400
+
+    Fix pedansee warnings in dmap-mdns-browser-avahi.c and dmap-mdns-publisher-avahi.c
+    
+    Signed-off-by: W. Michael Petullo <mike@flyn.org>
+
+commit 8e940fcd4a41565bde27112b71adfbfdf583d8a4
+Author: W. Michael Petullo <mike@flyn.org>
+Date:   Mon Apr 23 00:42:57 2018 -0400
+
+    Fix pedansee warnings in dmap-mdns-avahi.c
+    
+    Signed-off-by: W. Michael Petullo <mike@flyn.org>
+
+commit e2bf0974b21989de262cc0d134299d6cb4d7b8d8
+Author: W. Michael Petullo <mike@flyn.org>
+Date:   Sun Mar 25 19:36:41 2018 -0400
+
+    Adjust README-Porting for increased use of GError
+    
+    Signed-off-by: W. Michael Petullo <mike@flyn.org>
+
+commit 8abdf2187f9278ca750f63228eed1e96228ea8e6
+Author: W. Michael Petullo <mike@flyn.org>
+Date:   Sun Mar 25 19:18:48 2018 -0400
+
+    Adjust documentation for increased use of GError
+    
+    Signed-off-by: W. Michael Petullo <mike@flyn.org>
+
+commit d756418dd3e9d829352228e1bf411541b0627a35
+Author: W. Michael Petullo <mike@flyn.org>
+Date:   Sun Mar 25 18:57:15 2018 -0400
+
+    Adjust a number of methods to take a GError **
+    
+    Signed-off-by: W. Michael Petullo <mike@flyn.org>
+
+commit b8f2f8eb10518ade4dcff0e873684baa351c6109
+Author: W. Michael Petullo <mike@flyn.org>
+Date:   Sun Mar 25 15:43:57 2018 -0400
+
+    Make use of dmap_connection_authenticate_message from tests
+    
+    Signed-off-by: W. Michael Petullo <mike@flyn.org>
+
+commit af19bf974cfaf6dbf9b399cd9cb37f314c13a98c
+Author: W. Michael Petullo <mike@flyn.org>
+Date:   Sun Mar 25 15:37:42 2018 -0400
+
+    Move dmap_connection_setup to private header and clean up dmap-connection.{c,h}
+    
+    Signed-off-by: W. Michael Petullo <mike@flyn.org>
+
+commit 84aeadebd77d656f368e268bc657a92a75e6b0ac
+Author: W. Michael Petullo <mike@flyn.org>
+Date:   Sun Mar 25 15:27:02 2018 -0400
+
+    More work on documentation
+    
+    Signed-off-by: W. Michael Petullo <mike@flyn.org>
+
+commit 460e46da777041f31f97aa23d8599679e72d7e5e
+Author: W. Michael Petullo <mike@flyn.org>
+Date:   Sun Mar 25 09:55:14 2018 -0400
+
+    Adjust whitespace
+    
+    Signed-off-by: W. Michael Petullo <mike@flyn.org>
+
+commit 5bce13ba8cbdea762cdb7dfd762672d52b66693d
+Author: W. Michael Petullo <mike@flyn.org>
+Date:   Sun Mar 25 00:12:14 2018 -0400
+
+    Add missing return type in documentation's connected_cb example
+    
+    Signed-off-by: W. Michael Petullo <mike@flyn.org>
+
+commit bf83aaf159c217f88fbca632938e480bd923144a
+Author: W. Michael Petullo <mike@flyn.org>
+Date:   Sun Mar 25 00:07:41 2018 -0400
+
+    Make sample code in documentation wider for web display
+    
+    Signed-off-by: W. Michael Petullo <mike@flyn.org>
+
+commit 3e10964205128643ebf7e26a01f0156496a0bba8
+Author: W. Michael Petullo <mike@flyn.org>
+Date:   Sun Mar 25 00:05:16 2018 -0400
+
+    Return of object tree to documentation
+    
+    Signed-off-by: W. Michael Petullo <mike@flyn.org>
+
+commit bb7ff5b6f0391e2e003096a8a9524f74b66e56be
+Author: W. Michael Petullo <mike@flyn.org>
+Date:   Sat Mar 24 23:13:23 2018 -0400
+
+    Play with struct/enum declaration whitespace to appease gtk-doc
+    
+    Signed-off-by: W. Michael Petullo <mike@flyn.org>
+
+commit a956e01d8bd9a34e26ef4d6fa2e2c15d938e23db
+Author: W. Michael Petullo <mike@flyn.org>
+Date:   Sat Mar 24 22:32:23 2018 -0400
+
+    Document DmapConnectionState
+    
+    Signed-off-by: W. Michael Petullo <mike@flyn.org>
+
+commit 6d67a78c36c0a9ed1d293ea6a1526992e36a2eb4
+Author: W. Michael Petullo <mike@flyn.org>
+Date:   Thu Mar 22 14:46:51 2018 -0400
+
+    Update documentation to new API
+    
+    Signed-off-by: W. Michael Petullo <mike@flyn.org>
+
+commit f0eeb29e79348d850119e2cb22342ded12c7f1ba
+Author: W. Michael Petullo <mike@flyn.org>
+Date:   Thu Mar 22 14:46:22 2018 -0400
+
+    Implement hash property in test-dmap-image-record.c
+    
+    Signed-off-by: W. Michael Petullo <mike@flyn.org>
+
+commit 221542ebe88c4fd3d4421d912df81f6eb2a3b713
+Author: W. Michael Petullo <mike@flyn.org>
+Date:   Thu Mar 22 02:32:50 2018 -0400
+
+    Fixes for test code
+    
+    Signed-off-by: W. Michael Petullo <mike@flyn.org>
+
+commit c3dca7a55bd1cca15e88898827faa27aa7d71bbc
+Author: W. Michael Petullo <mike@flyn.org>
+Date:   Wed Mar 21 23:14:22 2018 -0400
+
+    Use dashes in properties: revision-number and auth-method
+    
+    Signed-off-by: W. Michael Petullo <mike@flyn.org>
+
+commit 1c964bcbea32e0ceea49eaae2732dc44d50d0999
+Author: W. Michael Petullo <mike@flyn.org>
+Date:   Wed Mar 21 20:23:46 2018 -0400
+
+    Work through rest of pedansee warnings
+    
+    Signed-off-by: W. Michael Petullo <mike@flyn.org>
+
+commit e50c5976edf25d449da67d810d9411a8162f1e92
+Author: W. Michael Petullo <mike@flyn.org>
+Date:   Wed Mar 21 00:09:15 2018 -0400
+
+    Update doc/Makefile.am to remove some more files on distclean
+    
+    Signed-off-by: W. Michael Petullo <mike@flyn.org>
+
+commit fb1d9bae3bcb74489fa32fe14ba77829c8ff5043
+Author: W. Michael Petullo <mike@flyn.org>
+Date:   Wed Mar 21 00:00:35 2018 -0400
+
+    Fix signal definitions and other things breaking Vala bindings build
+    
+    Signed-off-by: W. Michael Petullo <mike@flyn.org>
+
+commit 34ba55b62cb574b7a93a927adb2f6cebefd42262
+Author: W. Michael Petullo <mike@flyn.org>
+Date:   Tue Mar 20 23:20:28 2018 -0400
+
+    Update libdmapsharing-4.0.metadata
+    
+    Signed-off-by: W. Michael Petullo <mike@flyn.org>
+
+commit 3a0fb49ce7b2151b81f1d4b36c2e0e6be8d15e80
+Author: W. Michael Petullo <mike@flyn.org>
+Date:   Tue Mar 20 22:58:28 2018 -0400
+
+    Work related to Vala binding
+    
+    Signed-off-by: W. Michael Petullo <mike@flyn.org>
+
+commit 0b854bbacf47219225bd2d67514cbdccfe5874fc
+Author: W. Michael Petullo <mike@flyn.org>
+Date:   Tue Mar 20 22:52:25 2018 -0400
+
+    Another change to libdmapsharing4.spec
+    
+    Signed-off-by: W. Michael Petullo <mike@flyn.org>
+
+commit b61351c803ef0fd6b10ea3d6db166ef23630b256
+Author: W. Michael Petullo <mike@flyn.org>
+Date:   Tue Mar 20 20:26:06 2018 -0400
+
+    Changes due to pedansee
+    
+    Signed-off-by: W. Michael Petullo <mike@flyn.org>
+
+commit ded59f4d62d741ed547d3ab5e2e849ce49d77b54
+Author: W. Michael Petullo <mike@flyn.org>
+Date:   Tue Mar 20 18:20:08 2018 -0400
+
+    Adjust libdmapsharing4.spec following package review
+    
+    Signed-off-by: W. Michael Petullo <mike@flyn.org>
+
+commit a89bc9eb7733c0624cdb59f3904a5736b312fb53
+Author: W. Michael Petullo <mike@flyn.org>
+Date:   Tue Mar 20 00:38:59 2018 -0400
+
+    dacplisten.vala: follow API change
+    
+    Signed-off-by: W. Michael Petullo <mike@flyn.org>
+
+commit 9f3e702d02b1033ac61ad9e033c7915e65bc7549
+Author: W. Michael Petullo <mike@flyn.org>
+Date:   Tue Mar 20 00:37:46 2018 -0400
+
+    Rename some static functions in dmap-image-connection.c
+    
+    Signed-off-by: W. Michael Petullo <mike@flyn.org>
+
+commit 6cf4986b1b38161c60f701ba16b7bcf1d4555c98
+Author: W. Michael Petullo <mike@flyn.org>
+Date:   Mon Mar 19 14:52:44 2018 -0400
+
+    Changes to dmap-structure.{c,h} due to pedansee
+    
+    Signed-off-by: W. Michael Petullo <mike@flyn.org>
+
+commit 002b9ebbaa31ed9a98f14299564a07285ac8df53
+Author: W. Michael Petullo <mike@flyn.org>
+Date:   Mon Mar 19 14:27:39 2018 -0400
+
+    Update README-Porting after working with grilo-plugins
+    
+    Signed-off-by: W. Michael Petullo <mike@flyn.org>
+
+commit aeb00da19bbb13f21ffdcbe8772d2fe4a6249a7e
+Author: W. Michael Petullo <mike@flyn.org>
+Date:   Sun Mar 18 20:01:21 2018 -0400
+
+    Adjust libdmapsharing4.spec
+    
+    Signed-off-by: W. Michael Petullo <mike@flyn.org>
+
+commit 4004f6d329e5d8783a91489bf025f4de4d81a405
+Author: W. Michael Petullo <mike@flyn.org>
+Date:   Sun Mar 18 19:05:55 2018 -0400
+
+    Bump version number
+    
+    Signed-off-by: W. Michael Petullo <mike@flyn.org>
+
+commit 1ea45f151926e071398c3c79283e5ecb31d023e6
+Author: W. Michael Petullo <mike@flyn.org>
+Date:   Sun Mar 18 19:03:37 2018 -0400
+
+    Allow dmap-mdns-browser-dnssd.c to compile; needs more work
+    
+    Signed-off-by: W. Michael Petullo <mike@flyn.org>
+
+commit 435702a6d942f7bb746a35d841da66d0a78a0254
+Author: W. Michael Petullo <mike@flyn.org>
+Date:   Sun Mar 18 11:26:17 2018 -0400
+
+    Update TODO
+    
+    Signed-off-by: W. Michael Petullo <mike@flyn.org>
+
+commit c37524471c8ba249c408fe4eefe0a1660e00699f
+Author: W. Michael Petullo <mike@flyn.org>
+Date:   Sun Mar 18 11:26:05 2018 -0400
+
+    Modify now_playing_artwork() to return gchar *
+    
+    Signed-off-by: W. Michael Petullo <mike@flyn.org>
+
+commit 31fee798eb9ba8e0dde6d7fa5e180c581b915d1e
+Author: W. Michael Petullo <mike@flyn.org>
+Date:   Sun Mar 11 13:32:52 2018 -0400
+
+    Deal with name collisions when sharing given type of service
+    
+    Signed-off-by: W. Michael Petullo <mike@flyn.org>
+
+commit 4c1245a09e10f4d24ddbbc219f9779cad3137201
+Author: W. Michael Petullo <mike@flyn.org>
+Date:   Tue Mar 6 23:50:32 2018 -0500
+
+    Many small changes after running pedansee
+    
+    Signed-off-by: W. Michael Petullo <mike@flyn.org>
+
+commit fecabc23ddce6be16a707c1542875b962f5df596
+Author: W. Michael Petullo <mike@flyn.org>
+Date:   Tue Mar 6 21:04:11 2018 -0500
+
+    Many small changes after running pedansee
+    
+    Signed-off-by: W. Michael Petullo <mike@flyn.org>
+
+commit 4779c311dbb9a40f4e245f1ad4bf7b2a24de5372
+Author: W. Michael Petullo <mike@flyn.org>
+Date:   Fri Mar 2 17:24:30 2018 -0500
+
+    Update TODO
+    
+    Signed-off-by: W. Michael Petullo <mike@flyn.org>
+
+commit 234d65ac1b21375d9e11ffed5bc327618fc405d5
+Author: W. Michael Petullo <mike@flyn.org>
+Date:   Sat Feb 3 21:00:57 2018 -0500
+
+    Small changes to fix warnings from g-ir-scanner
+    
+    Signed-off-by: W. Michael Petullo <mike@flyn.org>
+
+commit 6b4779d006f2fe8c259ad16dac68442408b5a776
+Author: W. Michael Petullo <mike@flyn.org>
+Date:   Sat Jan 20 21:09:30 2018 -0500
 
     Fix some compiler warnings
+    
+    Signed-off-by: W. Michael Petullo <mike@flyn.org>
 
-commit 5e9ac3a6f2e23059de79b4358ceb756e556dc073
+commit 9ce2d41ef3cab7eb87410119314ee62646197cf1
 Author: W. Michael Petullo <mike@flyn.org>
-Date:   Tue Jun 30 13:38:39 2020 -0400
+Date:   Sat Jan 20 15:27:20 2018 -0500
 
-    Backport from 4.0 series: replace use of deprecated G_TYPE_INSTANCE_GET_PRIVATE
+    Adopt single DMAP/Dmap/dmap namespace
+    
+    Using DmapX rather than DMAPX is consistent with GTK (e.g.,
+    GtkButton). Getting rid of the DAAP, DACP, and DPAP namespaces eases
+    support for Vala and other languages which prefer one namespace per
+    library. Removed a buch of scripting just which was required to generate
+    introspection descriptions which previously combined several namespaces.
+    
+    Signed-off-by: W. Michael Petullo <mike@flyn.org>
 
-commit a825146809f5acc8e444184fac8b1d31ffd7ad36
+commit 1cc93edcd80bc24ed9ab074fb53d66fc93b0f166
 Author: W. Michael Petullo <mike@flyn.org>
-Date:   Tue Jun 30 11:52:49 2020 -0400
+Date:   Sat Jan 20 10:49:56 2018 -0500
 
-    Backport from 4.0 series: replace use of deprecated G_CONST_RETURN
+    Add unit tests to daap-share.c
+    
+    Signed-off-by: W. Michael Petullo <mike@flyn.org>
+
+commit 3a94b915db8792445f79a833a9b16f9239786d97
+Author: W. Michael Petullo <mike@flyn.org>
+Date:   Tue Dec 19 14:32:47 2017 -0500
+
+    Move definition of DMAP_SHARE_CHUNK_SIZE
+    
+    Signed-off-by: W. Michael Petullo <mike@flyn.org>
+
+commit 8dd1e8267221b6f726d8a80a4fed828bd2d9c5d9
+Author: W. Michael Petullo <mike@flyn.org>
+Date:   Thu Dec 7 23:40:18 2017 -0500
+
+    More tests for daap-share.c
+    
+    Signed-off-by: W. Michael Petullo <mike@flyn.org>
+
+commit 4723d7b369f295470ab55cca63272c2a23885ddc
+Author: W. Michael Petullo <mike@flyn.org>
+Date:   Wed Dec 6 22:11:37 2017 -0500
+
+    Add notes about g_object_{get,set} to README-Porting
+    
+    Signed-off-by: W. Michael Petullo <mike@flyn.org>
+
+commit afc561fcff0df1d24aa86c15f709d1c62e2880eb
+Author: W. Michael Petullo <mike@flyn.org>
+Date:   Tue Dec 5 23:16:57 2017 -0500
+
+    Update Vala-generate source files
+    
+    Signed-off-by: W. Michael Petullo <mike@flyn.org>
+
+commit a6253e11f8406acb3f1a4410e24552f094aa7bb1
+Author: W. Michael Petullo <mike@flyn.org>
+Date:   Tue Dec 5 23:15:55 2017 -0500
+
+    Add first unit test to daap-share.c
+    
+    Signed-off-by: W. Michael Petullo <mike@flyn.org>
+
+commit a9940b7e50a51c252b76211f35da162cb915fd4d
+Author: W. Michael Petullo <mike@flyn.org>
+Date:   Mon Dec 4 23:14:17 2017 -0500
+
+    Handle DMAP_TYPE_INVALID case statement which did not
+    
+    Signed-off-by: W. Michael Petullo <mike@flyn.org>
+
+commit 17cb26af8492b1d2faa4f24f70b461d8e4e6c263
+Author: W. Michael Petullo <mike@flyn.org>
+Date:   Mon Dec 4 23:06:17 2017 -0500
+
+    Add unit tests for DAAPRecord
+    
+    Signed-off-by: W. Michael Petullo <mike@flyn.org>
+
+commit 7b97dbb4703639d1fc9d2eb9ea4576669508b013
+Author: W. Michael Petullo <mike@flyn.org>
+Date:   Mon Dec 4 22:55:04 2017 -0500
+
+    Handle invalid content codes in dmap_content_code_dmap_type
+    
+    Signed-off-by: W. Michael Petullo <mike@flyn.org>
+
+commit c062a378fb62b80f471e7762d118ed87741e88d8
+Author: W. Michael Petullo <mike@flyn.org>
+Date:   Sun Nov 26 20:31:26 2017 -0500
+
+    Add unit test for daap_record_cmp_by_album
+    
+    Signed-off-by: W. Michael Petullo <mike@flyn.org>
+
+commit 86eaa5939a627cff57b5821b874b1acba3ad1c8b
+Author: W. Michael Petullo <mike@flyn.org>
+Date:   Sun Nov 26 18:40:05 2017 -0500
+
+    Add some braces to daap-record.c
+    
+    Signed-off-by: W. Michael Petullo <mike@flyn.org>
+
+commit fe886217d6bd80061021179ca4c80cff3e61efde
+Author: W. Michael Petullo <mike@flyn.org>
+Date:   Sun Nov 19 17:12:37 2017 -0500
+
+    Rename libdmapsharing-3.2.vapi to libdmapsharing-4.0.vapi
+    
+    Signed-off-by: W. Michael Petullo <mike@flyn.org>
+
+commit c75d89e769ecca957e3ec019c022e8c14ee30932
+Author: W. Michael Petullo <mike@flyn.org>
+Date:   Sun Nov 19 12:58:32 2017 -0500
+
+    Move version to 3.9/4.0
+    
+    Signed-off-by: W. Michael Petullo <mike@flyn.org>
+
+commit 41bf9abef62ee3b60922d1a4b999b9e33e6897da
+Author: W. Michael Petullo <mike@flyn.org>
+Date:   Sat Nov 18 17:34:38 2017 -0500
+
+    Fix some memory bugs
+    
+    Signed-off-by: W. Michael Petullo <mike@flyn.org>
+
+commit bac157b8f503c086ec6eec9a644f457fdb9b64a9
+Author: W. Michael Petullo <mike@flyn.org>
+Date:   Thu Nov 16 20:31:18 2017 -0500
+
+    Always call parent's dispose/finalize methods
+    
+    Signed-off-by: W. Michael Petullo <mike@flyn.org>
+
+commit 0e2077b2f811b125f5dfacce8c70ebf2a99596b7
+Author: W. Michael Petullo <mike@flyn.org>
+Date:   Thu Nov 16 17:25:06 2017 -0500
+
+    Clean up code related to dynamically-allocated properties
+    
+    Signed-off-by: W. Michael Petullo <mike@flyn.org>
+
+commit 74b9c5f21254ea46fba3d98e9b43f371b779e1e2
+Author: W. Michael Petullo <mike@flyn.org>
+Date:   Wed Nov 15 02:26:21 2017 -0500
+
+    Fix more thumbnail-related code
+    
+    Signed-off-by: W. Michael Petullo <mike@flyn.org>
+
+commit 38b4c1daa03d6190221a4a6b8bacd4801cb60c6a
+Author: W. Michael Petullo <mike@flyn.org>
+Date:   Wed Nov 15 00:17:26 2017 -0500
+
+    More adjustments related to API change
+    
+    Signed-off-by: W. Michael Petullo <mike@flyn.org>
+
+commit acee558c79ea691d58a5a204b930e2ce81b65801
+Author: W. Michael Petullo <mike@flyn.org>
+Date:   Mon Nov 13 13:45:13 2017 -0500
+
+    Add Porting guide
+    
+    Signed-off-by: W. Michael Petullo <mike@flyn.org>
+
+commit 1973bfe8d1e0139e20488343552185a211f68381
+Author: W. Michael Petullo <mike@flyn.org>
+Date:   Mon Nov 13 13:44:42 2017 -0500
+
+    Change {DAAP,DPAP}Record's hash and thumbnail properties into a boxed type
+    
+    Signed-off-by: W. Michael Petullo <mike@flyn.org>
+
+commit 081c2b29189ff3d78cb1cb3ff94715bd59a4f8c7
+Author: W. Michael Petullo <mike@flyn.org>
+Date:   Mon Nov 13 09:32:23 2017 -0500
+
+    Fix handling of mediakind property in testpython.py
+    
+    Signed-off-by: W. Michael Petullo <mike@flyn.org>
+
+commit 1c44afe9928b1709a56564abbdda879a98fca613
+Author: W. Michael Petullo <mike@flyn.org>
+Date:   Sun Nov 12 20:54:32 2017 -0500
+
+    Add support for G_DEFINE_INTERFACE to check target in libdmapsharing/Makefile.am
+    
+    Signed-off-by: W. Michael Petullo <mike@flyn.org>
+
+commit 5f7c58b4a1df26e7ff9bca0ad4b9964fea30ced9
+Author: W. Michael Petullo <mike@flyn.org>
+Date:   Sun Nov 12 20:28:27 2017 -0500
+
+    Add missing properties to TestDAAPRecord
+    
+    Signed-off-by: W. Michael Petullo <mike@flyn.org>
+
+commit c53773ab3040b536d4cb30532f6f9d4c2e6f3714
+Author: W. Michael Petullo <mike@flyn.org>
+Date:   Sun Nov 12 19:58:01 2017 -0500
+
+    Remove an unused variable
+    
+    Signed-off-by: W. Michael Petullo <mike@flyn.org>
+
+commit c00711a0115f8e9fe38bdc378d758fe0ab3c96c3
+Author: W. Michael Petullo <mike@flyn.org>
+Date:   Sun Nov 12 19:56:49 2017 -0500
+
+    Fix Vala after moving from Iface to Interface due to use of G_DEFINE_INTERFACE
+    
+    Signed-off-by: W. Michael Petullo <mike@flyn.org>
+
+commit 3c53a0fc0d5ca8b8648dc9df5b9f995e9158f7f0
+Author: W. Michael Petullo <mike@flyn.org>
+Date:   Sun Nov 12 18:31:08 2017 -0500
+
+    Use G_DEFINE_INTERFACE
+    
+    Signed-off-by: W. Michael Petullo <mike@flyn.org>
+
+commit 49e3880dffe33b714c08c41f55e5702f45d2bc82
+Author: W. Michael Petullo <mike@flyn.org>
+Date:   Sun Nov 12 18:29:57 2017 -0500
+
+    Fix two compiler warnings
+    
+    Signed-off-by: W. Michael Petullo <mike@flyn.org>
+
+commit 7834aca976a0e16dc3ccf1208c65eb17163d3e24
+Author: W. Michael Petullo <mike@flyn.org>
+Date:   Sun Nov 12 18:07:06 2017 -0500
+
+    Remove commented-out lines from testpython.py
+    
+    Signed-off-by: W. Michael Petullo <mike@flyn.org>
+
+commit 9bc1688d872bf003b233b07895a03b80e289ae09
+Author: W. Michael Petullo <mike@flyn.org>
+Date:   Sat Nov 11 20:03:55 2017 -0500
+
+    Modify API and create test-dmap-server-python
+    
+    Signed-off-by: W. Michael Petullo <mike@flyn.org>
+
+commit 04011c82d706a925cb22eab61b35448182f6574b
+Author: W. Michael Petullo <mike@flyn.org>
+Date:   Sat Nov 11 14:16:42 2017 -0500
+
+    Update RPM specification to build 3.1 series
+    
+    Signed-off-by: W. Michael Petullo <mike@flyn.org>
+
+commit b8380431f827c3aedf0b7bbf4654508b06f0d314
+Author: W. Michael Petullo <mike@flyn.org>
+Date:   Sat Nov 11 14:16:36 2017 -0500
+
+    libdmapsharing/Makefile.am: add dependency on DMAP-3.2.gir to DAAP-3.2.gir
+    
+    Signed-off-by: W. Michael Petullo <mike@flyn.org>
+
+commit fa0e18b8e989e6c0086314bd7c3e4dfa89ef19fb
+Author: W. Michael Petullo <mike@flyn.org>
+Date:   Sat Nov 11 13:51:42 2017 -0500
+
+    Work on Python test client
+    
+    Signed-off-by: W. Michael Petullo <mike@flyn.org>
+
+commit ff8539942410f427168227c86a651cbed7d3db99
+Author: W. Michael Petullo <mike@flyn.org>
+Date:   Sat Nov 11 08:23:38 2017 -0500
+
+    Port test-dmap-client-python to Python 3
+    
+    Signed-off-by: W. Michael Petullo <mike@flyn.org>
+
+commit 5ff26427cd4f45685d630496db45193c13303355
+Author: W. Michael Petullo <mike@flyn.org>
+Date:   Sat Nov 11 08:22:28 2017 -0500
+
+    Apply standard whitespace rules to test-dmap-client-python
+    
+    Signed-off-by: W. Michael Petullo <mike@flyn.org>
+
+commit f3b1047f6d46bf43900dcedb0f947bf7dc50774b
+Author: W. Michael Petullo <mike@flyn.org>
+Date:   Fri Nov 10 22:13:13 2017 -0500
+
+    Update documentation to 3.2
+    
+    Signed-off-by: W. Michael Petullo <mike@flyn.org>
+
+commit 7baf2b9afdd1acc4f12b6ce27c8ce43ce759b575
+Merge: 0fa30fa 9730159
+Author: W. Michael Petullo <mike@flyn.org>
+Date:   Fri Nov 10 21:52:25 2017 -0500
+
+    Merge branch 'gobject-introspection'
+    
+    Signed-off-by: W. Michael Petullo <mike@flyn.org>
 
 commit 0fa30fab6e06efbb826128f81fa1272ae6daa080
 Author: W. Michael Petullo <mike@flyn.org>
@@ -936,6 +2724,23 @@ Date:   Tue Aug 5 15:21:45 2014 -0400
     
     Signed-off-by: W. Michael Petullo <mike@flyn.org>
 
+commit 97301599fde35f51d22bcf5169673d1dff30cadf
+Author: W. Michael Petullo <mike@flyn.org>
+Date:   Tue Aug 5 15:17:38 2014 -0400
+
+    Fix mismatched DMAPMetaDataMap struct typedef
+    
+    A mismatched struct typedef in dmap-share.h confuses GObject introspection
+    into producing an error when the original struct is defined. The typedef
+    of DMAPMetaDataMap asks for struct _DMAPMetaDataMap, but the actual
+    struct definition says struct DMAPMetaDataMap. gir will complain about
+    namespace conflicts and abort a jhbuild build as a result.
+    
+    Thanks to Pietro Gagliardi and gregier in irc.gimp.net/#gtk+ who helped
+    Pietro.
+    
+    Signed-off-by: W. Michael Petullo <mike@flyn.org>
+
 commit dc2f29bb515334cdeb921ddf680163357816a15c
 Author: W. Michael Petullo <mike@flyn.org>
 Date:   Tue Aug 5 15:17:38 2014 -0400
@@ -950,6 +2755,94 @@ Date:   Tue Aug 5 15:17:38 2014 -0400
     
     Thanks to Pietro Gagliardi and gregier in irc.gimp.net/#gtk+ who helped
     Pietro.
+    
+    Signed-off-by: W. Michael Petullo <mike@flyn.org>
+
+commit 7d75ba6f85e889eb65b1756fda6d47326b66f897
+Author: W. Michael Petullo <mike@flyn.org>
+Date:   Wed Jun 25 23:16:46 2014 -0400
+
+    Remove comment about DAAP_TYPE_SIMPLE_RECORD_FACTORY from test-dmap-client-python
+    
+    Signed-off-by: W. Michael Petullo <mike@flyn.org>
+
+commit d0b3fc060032e20793061131aeea9f4d95baced8
+Author: W. Michael Petullo <mike@flyn.org>
+Date:   Wed Jun 25 23:14:18 2014 -0400
+
+    Finished fixing test-dmap-client printing of DPAP records
+    
+    Signed-off-by: W. Michael Petullo <mike@flyn.org>
+
+commit 76c95e6e724c928a6438c21f23d60c63a3a6941a
+Author: W. Michael Petullo <mike@flyn.org>
+Date:   Wed Jun 25 23:05:01 2014 -0400
+
+    Some work on test-dmap-client
+    
+    Signed-off-by: W. Michael Petullo <mike@flyn.org>
+
+commit 439e794ab6bea8d0e691743528ee18c698bdbdea
+Author: W. Michael Petullo <mike@flyn.org>
+Date:   Wed Jun 25 22:15:09 2014 -0400
+
+    More cleaning introspectable code; tests all compile
+    
+    Signed-off-by: W. Michael Petullo <mike@flyn.org>
+
+commit ad995ac382f0a5ea224b37a67fdc9500a09f502a
+Author: W. Michael Petullo <mike@flyn.org>
+Date:   Wed Jun 25 18:00:23 2014 -0400
+
+    Get rid of "simple" implementations of DAAPRecord and DAAPRecordFactory
+    
+    Signed-off-by: W. Michael Petullo <mike@flyn.org>
+
+commit ed5c6b905e34f6dadcdf906a28964424e6a3e369
+Author: W. Michael Petullo <mike@flyn.org>
+Date:   Wed Jun 25 17:38:49 2014 -0400
+
+    Git add daap-*-simple.{c,h}; I hope to remove them again later
+    
+    Signed-off-by: W. Michael Petullo <mike@flyn.org>
+
+commit 6af36d3152fad012df00fb6015133ed46bec5eff
+Author: W. Michael Petullo <mike@flyn.org>
+Date:   Wed Jun 25 17:25:58 2014 -0400
+
+    Work in progress: can now browse DAAP shares with GObject introspection and Python
+    
+    Signed-off-by: W. Michael Petullo <mike@flyn.org>
+
+commit fcdb5c803da6554fd3c560a8a7bc227f8f664341
+Author: W. Michael Petullo <mike@flyn.org>
+Date:   Tue Jun 24 00:30:55 2014 -0400
+
+    Move some code to new DMAPMdnsService class
+    
+    Signed-off-by: W. Michael Petullo <mike@flyn.org>
+
+commit f91f9c270addb3d991c119a2d1daa7e9a4b2ee75
+Author: W. Michael Petullo <mike@flyn.org>
+Date:   Mon Jun 23 21:07:27 2014 -0400
+
+    Fix another comment in dmap-mdns-browser.h
+    
+    Signed-off-by: W. Michael Petullo <mike@flyn.org>
+
+commit d296d1bb99eb00d0ec7b53212a995484d234853d
+Author: W. Michael Petullo <mike@flyn.org>
+Date:   Mon Jun 23 21:06:08 2014 -0400
+
+    Fix comment in dmap-mdns-browser.h
+    
+    Signed-off-by: W. Michael Petullo <mike@flyn.org>
+
+commit 28e77f2c06061647ddcf6dfc5f556b28754eb117
+Author: W. Michael Petullo <mike@flyn.org>
+Date:   Sun Jun 22 22:10:00 2014 -0400
+
+    Build both DMAP and DAAP .gir/.typelib
     
     Signed-off-by: W. Michael Petullo <mike@flyn.org>
 
