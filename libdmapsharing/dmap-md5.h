@@ -18,8 +18,8 @@
  * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA*
  */
 
-#ifndef __DMAP_MD5_H__
-#define __DMAP_MD5_H__
+#ifndef _DMAP_MD5_H__
+#define _DMAP_MD5_H__
 
 #include <glib.h>
 
@@ -27,30 +27,30 @@
 
 G_BEGIN_DECLS
 
-typedef struct DMAPHashContext
+typedef struct DmapHashContext
 {
         guint32 buf[4];
         guint32 bits[2];
         unsigned char in[64];
         gint version;
-} DMAPHashContext;
+} DmapHashContext;
 
-void dmap_hash_progressive_init      (DMAPHashContext *context);
+void dmap_md5_progressive_init      (DmapHashContext *context);
 
-void dmap_hash_progressive_update    (DMAPHashContext *context,
-                                      unsigned char const *buffer,
-                                      unsigned int length);
+void dmap_md5_progressive_update    (DmapHashContext *context,
+                                     unsigned char const *buffer,
+                                     unsigned int length);
 
-void dmap_hash_progressive_final     (DMAPHashContext *context,
-                                      unsigned char digest[16]);
+void dmap_md5_progressive_final     (DmapHashContext *context,
+                                     unsigned char digest[16]);
 
-void dmap_hash_progressive_to_string (const unsigned char *digest, gchar * string);
+void dmap_md5_progressive_to_string (const unsigned char *digest, gchar * string);
 
-void dmap_hash_generate              (short version_major,
-                                      const guchar *url,
-                                      guchar hash_select,
-                                      guchar *out,
-                                      gint request_id);
+void dmap_md5_generate              (short version_major,
+                                     const guchar *url,
+                                     guchar hash_select,
+                                     guchar *out,
+                                     gint request_id);
 
 G_END_DECLS
 #endif

@@ -1,24 +1,25 @@
-m4_define([libdmapsharing_major], [2])
+m4_define([libdmapsharing_major], [3])
 m4_define([libdmapsharing_minor], [9])
-m4_define([libdmapsharing_micro], [41])
+m4_define([libdmapsharing_micro], [13])
 m4_define([libdmapsharing_version], [libdmapsharing_major.libdmapsharing_minor.libdmapsharing_micro])
 
-AC_INIT(libdmapsharing, [libdmapsharing_version], [https://www.flyn.org/projects/libdmapsharing/])
+AC_INIT([libdmapsharing],[libdmapsharing_version],[https://www.flyn.org/projects/libdmapsharing/])
 
-API_VERSION=3.0
+API_VERSION=4.0
 AC_SUBST(API_VERSION)
 
 SO_VERSION=m4_eval(libdmapsharing_minor+libdmapsharing_major):m4_eval(libdmapsharing_micro):m4_eval(libdmapsharing_minor)
 AC_SUBST(SO_VERSION)
 
-AM_CONFIG_HEADER(config.h)
+AC_CONFIG_HEADERS(config.h)
 AC_CONFIG_MACRO_DIRS([m4])
 
-AC_HEADER_STDC
 AC_PROG_CC
 AC_PROG_CPP
-AC_PROG_LIBTOOL
-AM_PROG_CC_STDC
+LT_INIT
+AC_PROG_CC
+
+AC_SEARCH_LIBS([floorf], [m])
 
 GOBJECT_INTROSPECTION_CHECK([1.30.0])
 GTK_DOC_CHECK(1.0)
@@ -28,18 +29,16 @@ AC_PATH_PROG(PEDANSEE, pedansee)
 AM_CONDITIONAL(HAVE_PEDANSEE, test -n "$PEDANSEE")
 
 # Select debugging or measuring code coverage?
-AC_ARG_ENABLE(debug, [AC_HELP_STRING([--enable-debug],[enable debugging build])])
-AC_ARG_ENABLE(coverage, [AC_HELP_STRING([--enable-coverage],[enable code-coverage build])])
+AC_ARG_ENABLE(debug, [AS_HELP_STRING([--enable-debug],[enable debugging build])])
+AC_ARG_ENABLE(coverage, [AS_HELP_STRING([--enable-coverage],[enable code-coverage build])])
 if test "x$enable_debug" = "xyes"; then
-	CFLAGS="$CFLAGS -g"
+	CFLAGS="$CFLAGS -O0 -g"
 elif test "x$enable_coverage" = "xyes"; then
-	CFLAGS="$CFLAGS -fprofile-arcs -ftest-coverage"
-else
-	CFLAGS="$CFLAGS -O2"
+	CFLAGS="$CFLAGS -O0 -g -fprofile-arcs -ftest-coverage"
 fi
 
 # Select more compiler warnings?
-AC_ARG_ENABLE(more-warnings, [AC_HELP_STRING([--enable-more-warnings],[maximum compiler warnings])])
+AC_ARG_ENABLE(more-warnings, [AS_HELP_STRING([--enable-more-warnings],[maximum compiler warnings])])
 if test "$GCC" = "yes" -a x$enable_more_warnings = "xyes"; then
 	WARN_CFLAGS="\
 		-Wcomment -Wformat -Wnonnull -Wimplicit-int -Wimplicit \
@@ -69,7 +68,7 @@ fi
 AC_SUBST(WARN_CFLAGS)
 
 # Build test code?
-AC_ARG_ENABLE(tests, [AC_HELP_STRING([--disable-tests],[do not build tests])], tests=$enableval, tests=yes)
+AC_ARG_ENABLE(tests, [AS_HELP_STRING([--disable-tests],[do not build tests])], tests=$enableval, tests=yes)
 if test x$tests = xyes; then
 	PKG_CHECK_MODULES([CHECK], [check >= 0.9.4],have_check=yes,have_check=no)
 	AM_CONDITIONAL(HAVE_CHECK, test x"$have_check" = "xyes")
@@ -96,13 +95,13 @@ if test "x$HAVE_PKGCONFIG" = "xno"; then
 fi
 
 # Have glib?
-PKG_CHECK_MODULES(GLIB, glib-2.0 >= 2.40, HAVE_GLIB=yes,HAVE_GLIB=no)
+PKG_CHECK_MODULES(GLIB, glib-2.0 >= 2.66, HAVE_GLIB=yes,HAVE_GLIB=no)
 if test "x$HAVE_GLIB" = "xno"; then
 	AC_MSG_ERROR([Must have glib-2.0 installed])
 fi
 
-AC_DEFINE(GLIB_VERSION_MIN_REQUIRED, GLIB_VERSION_2_40, [minimum glib version])
-AC_DEFINE(GLIB_VERSION_MAX_ALLOWED, GLIB_VERSION_2_40, [maximum glib version])
+AC_DEFINE(GLIB_VERSION_MIN_REQUIRED, GLIB_VERSION_2_66, [minimum glib version])
+AC_DEFINE(GLIB_VERSION_MAX_ALLOWED, GLIB_VERSION_2_66, [maximum glib version])
 
 AC_SUBST(GLIB_CFLAGS)
 AC_SUBST(GLIB_LIBS)
@@ -139,7 +138,7 @@ AC_SUBST(GDKPIXBUF_CFLAGS)
 AC_SUBST(GDKPIXBUF_LIBS)
 
 # Have libsoup?
-PKG_CHECK_MODULES(SOUP, libsoup-2.4 >= 2.48.0, HAVE_LIBSOUP=yes, HAVE_LIBSOUP=no)
+PKG_CHECK_MODULES(SOUP, libsoup-3.0, HAVE_LIBSOUP=yes, HAVE_LIBSOUP=no)
 if test x"$HAVE_LIBSOUP" = "xno"; then
 	AC_MSG_ERROR([Must have libsoup installed])
 fi
@@ -185,11 +184,10 @@ AC_SUBST(GSTREAMERAPP_LIBS)
 AM_PROG_VALAC([0.11.4])
 AM_CONDITIONAL(HAVE_VALAC, test -x "$VALAC")
 
-# Have vala-gen-introspect?
-AC_PATH_PROG(VALA_GEN_INTROSPECT, vala-gen-introspect)
+# Have vapigen?
 AC_PATH_PROG(VAPIGEN, vapigen)
-AM_CONDITIONAL(BUILD_VAPI, test -n "$VALA_GEN_INTROSPECT" -a -n "$VAPIGEN" -a xyes = x"$found_introspection")
-if ! test -n "$VALA_GEN_INTROSPECT" -a -n "$VAPIGEN" -a xyes = x"$found_introspection"; then
+AM_CONDITIONAL(BUILD_VAPI, test -n "$VAPIGEN" -a xyes = x"$found_introspection")
+if ! test -n "$VAPIGEN" -a xyes = x"$found_introspection"; then
 	AC_MSG_WARN([Will not build vapi])
 fi
 
@@ -213,8 +211,7 @@ AC_SUBST(DMAP_HAVE_UNALIGNED_ACCESS_DEFINE)
 # Select mDNS library.
 AC_ARG_WITH(
 	mdns,
-	AC_HELP_STRING([--with-mdns=auto|avahi|dns_sd],
-	[Select the mDNS/DNS-SD implementation to use (default auto)]),
+	AS_HELP_STRING([--with-mdns=auto|avahi|dns_sd],[Select the mDNS/DNS-SD implementation to use (default auto)]),
 	WITH_MDNS=$withval,
 	WITH_MDNS=auto
 )
@@ -299,10 +296,6 @@ AC_CONFIG_FILES([
 	m4/Makefile
 	media/Makefile
 	vala/Makefile
-	vala/libdmapsharing-${API_VERSION}-daap/libdmapsharing-${API_VERSION}-uninstalled.files
-	vala/libdmapsharing-${API_VERSION}-dacp/libdmapsharing-${API_VERSION}-uninstalled.files
-	vala/libdmapsharing-${API_VERSION}-dmap/libdmapsharing-${API_VERSION}-uninstalled.files
-	vala/libdmapsharing-${API_VERSION}-dpap/libdmapsharing-${API_VERSION}-uninstalled.files
 ])
 
 AC_OUTPUT

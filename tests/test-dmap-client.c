@@ -23,10 +23,9 @@
 #include <string.h>
 
 #include <libdmapsharing/dmap.h>
-#include <libdmapsharing/test-daap-record-factory.h>
-#include <libdmapsharing/test-dpap-record-factory.h>
-
-#include "test-dmap-db.h"
+#include <libdmapsharing/test-dmap-av-record-factory.h>
+#include <libdmapsharing/test-dmap-image-record-factory.h>
+#include <libdmapsharing/test-dmap-db.h>
 
 enum {
     DAAP,
@@ -37,42 +36,65 @@ static GMainLoop *loop;
 static guint conn_type = DAAP;
 
 static void
-print_record (gpointer id, DMAPRecord *record, gpointer user_data)
+print_record (gpointer id, DmapRecord *record, G_GNUC_UNUSED gpointer user_data)
 {
-	gboolean has_video;
-	gchar   *artist, *title;
+	if (DMAP_IS_AV_RECORD(record)) {
+		gboolean has_video;
+		gchar   *artist, *title;
 
-	g_object_get (record,
-	             "has-video", &has_video,
-	             "songartist", &artist,
-	             "title",  &title,
-	              NULL);
+		g_object_get (record,
+			     "has-video", &has_video,
+			     "songartist", &artist,
+			     "title",  &title,
+			      NULL);
 
-	g_print ("%d: %s %s (has video: %s)\n", GPOINTER_TO_UINT (id), artist, title, has_video ? "Y" : "N");
+		g_print ("%d: %s %s (has video: %s)\n", GPOINTER_TO_UINT(id), artist, title, has_video ? "Y" : "N");
 
-	g_free (artist);
-	g_free (title);
+		g_free (artist);
+		g_free (title);
+	} else if (DMAP_IS_IMAGE_RECORD(record)) {
+		gchar   *format, *location;
+
+		g_object_get (record,
+			     "format", &format,
+			     "location", &location,
+			      NULL);
+
+		g_print ("%d: %s %s\n", GPOINTER_TO_UINT(id), format, location);
+
+		g_free (format);
+		g_free (location);
+	} else {
+		g_assert_not_reached();
+	}
+}
+
+static void error_cb(G_GNUC_UNUSED DmapConnection *connection,
+                     GError *error,
+                     G_GNUC_UNUSED gpointer user_data)
+{
+	g_error("%s", error->message);
 }
 
 static void
-connected_cb (DMAPConnection *connection,
-			 gboolean        result,
-			 const char     *reason,
-			 DMAPDb         *db)
+connected_cb (G_GNUC_UNUSED DmapConnection *connection,
+              G_GNUC_UNUSED gboolean        result,
+              G_GNUC_UNUSED const char     *reason,
+              DmapDb         *db)
 {
 	g_print ("Connection cb., DB has %lu entries\n", dmap_db_count (db));
 
-	dmap_db_foreach (db, (GHFunc) print_record, NULL);
+	dmap_db_foreach (db, (DmapIdRecordFunc) print_record, NULL);
 }
 
 static void
-authenticate_cb (DMAPConnection *connection,
-		 const char *name,
+authenticate_cb (DmapConnection *connection,
+		 G_GNUC_UNUSED const char *name,
 		 SoupSession *session,
 		 SoupMessage *msg,
 		 SoupAuth *auth,
-		 gboolean retrying,
-		 gpointer user_data)
+		 G_GNUC_UNUSED gboolean retrying,
+		 G_GNUC_UNUSED gpointer user_data)
 {
 	char *username, password[BUFSIZ + 1], *rc;
 	g_object_get (connection, "username", &username, NULL);
@@ -84,25 +106,33 @@ authenticate_cb (DMAPConnection *connection,
 	}
 
 	password[strlen(password) - 1] = 0x00; // Remove newline.
-	g_object_set (connection, "password", password, NULL);
-	soup_auth_authenticate (auth, username, password);
-	soup_session_unpause_message (session, msg);
+
+	dmap_connection_authenticate_message(connection, session, msg, auth, password);
+
+	g_free(username);
 }
 
 static void
-service_added_cb (DMAPMdnsBrowser *browser,
-                  DMAPMdnsBrowserService *service,
-                  gpointer user_data)
+service_added_cb (G_GNUC_UNUSED DmapMdnsBrowser *browser,
+                  DmapMdnsService *service,
+                  G_GNUC_UNUSED gpointer user_data)
 {
-    DMAPRecordFactory *factory;
-    DMAPConnection *conn;
-    DMAPDb *db;
+    DmapRecordFactory *factory;
+    DmapConnection *conn;
+    DmapDb *db;
+    guint port;
+    gchar *service_name, *name, *host;
+
+    g_object_get(service, "service-name", &service_name,
+                          "name", &name,
+                          "host", &host,
+                          "port", &port, NULL);
 
     g_debug ("service added %s:%s:%s:%d",
-             service->service_name,
-             service->name,
-             service->host,
-             service->port);
+             service_name,
+             name,
+             host,
+             port);
 
     db = DMAP_DB (test_dmap_db_new ());
     if (db == NULL) {
@@ -110,26 +140,51 @@ service_added_cb (DMAPMdnsBrowser *browser,
     }
 
     if (conn_type == DAAP) {
-        factory = DMAP_RECORD_FACTORY (test_daap_record_factory_new ());
+        factory = DMAP_RECORD_FACTORY (test_dmap_av_record_factory_new ());
         if (factory == NULL) {
    	    g_error ("Error creating record factory");
         }
-        conn = DMAP_CONNECTION (daap_connection_new (service->name, service->host, service->port, db, factory));
+        conn = DMAP_CONNECTION (dmap_av_connection_new (name, host, port, db, factory));
     } else {
-        factory = DMAP_RECORD_FACTORY (test_dpap_record_factory_new ());
+        factory = DMAP_RECORD_FACTORY (test_dmap_image_record_factory_new ());
         if (factory == NULL) {
    	    g_error ("Error creating record factory");
         }
-        conn = DMAP_CONNECTION (dpap_connection_new (service->name, service->host, service->port, db, factory));
+        conn = DMAP_CONNECTION (dmap_image_connection_new (name, host, port, db, factory));
     }
     g_signal_connect (DMAP_CONNECTION (conn), "authenticate", G_CALLBACK(authenticate_cb), NULL);
-    dmap_connection_connect (DMAP_CONNECTION (conn), (DMAPConnectionCallback) connected_cb, db);
+    g_signal_connect (DMAP_CONNECTION (conn), "error", G_CALLBACK(error_cb), NULL);
+
+    dmap_connection_start (DMAP_CONNECTION (conn), (DmapConnectionFunc) connected_cb, db);
+
+    g_free(service_name);
+    g_free(name);
+    g_free(host);
+}
+
+static void
+_log_printf(const char *log_domain,
+            G_GNUC_UNUSED GLogLevelFlags level,
+            const gchar *message,
+            G_GNUC_UNUSED gpointer user_data)
+{
+    g_printerr("%s: %s\n", log_domain, message);
 }
 
 int main(int argc, char **argv)
 {
-    DMAPMdnsBrowser *browser;
+    DmapMdnsBrowser *browser;
     GError *error = NULL;
+
+    g_log_set_handler ("libdmapsharing",
+                        G_LOG_LEVEL_MASK | G_LOG_FLAG_FATAL | G_LOG_FLAG_RECURSION,
+                        _log_printf,
+                        NULL);
+
+    g_log_set_handler ("dmapd",
+                        G_LOG_LEVEL_MASK | G_LOG_FLAG_FATAL | G_LOG_FLAG_RECURSION,
+                        _log_printf,
+                        NULL);
 
     if (argc == 2)
         conn_type = atoi (argv[1]);
@@ -137,9 +192,9 @@ int main(int argc, char **argv)
     loop = g_main_loop_new (NULL, FALSE);
 
     if (conn_type == DAAP)
-        browser = dmap_mdns_browser_new (DMAP_MDNS_BROWSER_SERVICE_TYPE_DAAP);
+        browser = dmap_mdns_browser_new (DMAP_MDNS_SERVICE_TYPE_DAAP);
     else
-        browser = dmap_mdns_browser_new (DMAP_MDNS_BROWSER_SERVICE_TYPE_DPAP);
+        browser = dmap_mdns_browser_new (DMAP_MDNS_SERVICE_TYPE_DPAP);
     g_signal_connect (G_OBJECT (browser),
                       "service-added",
                       G_CALLBACK (service_added_cb),

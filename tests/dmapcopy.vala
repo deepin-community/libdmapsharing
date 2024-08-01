@@ -21,17 +21,16 @@
  */
 
 private class DPAPCopy {
-	private DMAP.MdnsBrowser browser;
-	private DMAP.Connection connection;
-	private ValaDMAPDb db;
-	private ValaDPAPRecordFactory factory;
+	private Dmap.MdnsBrowser browser;
+	private Dmap.Connection connection;
+	private ValaDmapDb db;
+	private ValaImageRecordFactory factory;
 
-	private bool connected_cb (DMAP.Connection connection, bool result, string? reason) {
+	private void connected_cb (Dmap.Connection connection, bool result, string? reason) {
 		GLib.debug ("%" + int64.FORMAT + " entries\n", db.count ());
 
 		db.foreach ((k, v) => {
-
-			stdout.printf ("%s\n", ((ValaDPAPRecord) v).location);
+			stdout.printf ("%s\n", ((ValaImageRecord) v).location);
 
 			/* Uncomment to copy the data:
 			var session = new Soup.SessionAsync ();
@@ -54,21 +53,17 @@ private class DPAPCopy {
 			data_stream.write (message.response_body.data, (size_t) message.response_body.length, null);
 			*/
 		});
-
-		return true;
-	}
-
-	private void service_added_cb (DMAP.MdnsBrowserService *service) {
-		connection = (DMAP.Connection) new DPAP.Connection (service->service_name, service->host, service->port, db, factory);
-		connection.connect (connected_cb);
 	}
 
 	public DPAPCopy () throws GLib.Error {
-		db = new ValaDMAPDb ();
-		factory = new ValaDPAPRecordFactory ();
+		db = new ValaDmapDb ();
+		factory = new ValaImageRecordFactory ();
 
-		browser = new DMAP.MdnsBrowser (DMAP.MdnsBrowserServiceType.DPAP);
-		browser.service_added.connect (service_added_cb);
+		browser = new Dmap.MdnsBrowser (Dmap.MdnsServiceType.DPAP);
+		browser.service_added.connect ((browser, service) => {
+			connection = (Dmap.Connection) new Dmap.ImageConnection (service.service_name, service.host, service.port, db, factory);
+			connection.start (connected_cb);
+		});
 		browser.start ();
 	}
 }
@@ -92,9 +87,12 @@ int main (string[] args) {
 	GLib.Log.set_handler ("libdmapsharing", GLib.LogLevelFlags.LEVEL_DEBUG, debug_null);
 	GLib.Log.set_handler (null, GLib.LogLevelFlags.LEVEL_DEBUG, debug_null);
 
-	var dmapcopy = new DPAPCopy ();
-
-	loop.run ();
+	try {
+		var dmapcopy = new DPAPCopy ();
+		loop.run ();
+	} catch (Error e) {
+		stderr.printf("Error: %s\n", e.message);
+	}
 
 	return 0;
 }

@@ -1,8 +1,58 @@
-libdmapsharing (2.9.41-deepin1) unstable; urgency=medium
+libdmapsharing (3.9.13-2) unstable; urgency=medium
 
-  * Rebuild
+  * Stop using debian/control.in and dh-sequence-gnome
+  * Upload to unstable (Closes: #1062271)
 
- -- Deepin Packages Builder <packages@deepin.org>  Fri, 11 Nov 2022 17:59:04 +0800
+ -- Jeremy Bícha <jbicha@ubuntu.com>  Wed, 28 Feb 2024 15:13:31 -0500
+
+libdmapsharing (3.9.13-1.1~exp1) experimental; urgency=medium
+
+  * Non-maintainer upload.
+  * Rename libraries for 64-bit time_t transition.
+
+ -- Steve Langasek <vorlon@debian.org>  Wed, 31 Jan 2024 22:13:12 +0000
+
+libdmapsharing (3.9.13-1) unstable; urgency=medium
+
+  * New upstream release
+  * Drop patch: no longer needed
+  * Set Files-Excluded to ensure we build the html docs from source
+
+ -- Jeremy Bícha <jbicha@ubuntu.com>  Fri, 21 Jul 2023 11:57:58 -0400
+
+libdmapsharing (3.9.12-3) unstable; urgency=medium
+
+  * Release to unstable (Closes: #964795, #967571, #981034, #1033920, #1037386)
+
+ -- Jeremy Bícha <jbicha@ubuntu.com>  Tue, 13 Jun 2023 10:19:57 -0400
+
+libdmapsharing (3.9.12-2) experimental; urgency=medium
+
+  * debian/libdmapsharing-4.0-3.symbols: Mark some symbols as optional
+
+ -- Jeremy Bícha <jbicha@ubuntu.com>  Sat, 10 Jun 2023 06:23:41 -0400
+
+libdmapsharing (3.9.12-1) experimental; urgency=medium
+
+  [ Debian Janitor ]
+  * Add debian/upstream/metadata
+  * Use secure URI in Homepage field
+  * Avoid explicitly specifying -Wl,--as-needed linker flag
+  * Update standards version to 4.6.2, no changes needed
+
+  [ Jeremy Bícha ]
+  * New upstream release
+  * Update binary packages for new upstream series
+  * Build with libsoup3
+  * Bump debhelper-compat to 13
+  * debian/control.in: Set Rules-Requires-Root: no
+  * debian/control.in: Build-Depend on gtk3 instead of gtk2
+  * debian/control.in: Have -dev package depend on gir package
+  * Don't override gir install directory
+  * Add patch to include missing upstream files to fix docs build
+  * Update debian/copyright
+
+ -- Jeremy Bícha <jbicha@ubuntu.com>  Fri, 09 Jun 2023 08:13:18 -0400
 
 libdmapsharing (2.9.41-3) unstable; urgency=medium
 

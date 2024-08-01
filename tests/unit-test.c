@@ -5,7 +5,10 @@
 #include <stdlib.h>
 #include <libdmapsharing/dmap.h>
 
-#include "../libdmapsharing/daap-connection-suite.h"
+#include "../libdmapsharing/dmap-av-connection-suite.h"
+#include "../libdmapsharing/dmap-av-record-suite.h"
+#include "../libdmapsharing/dmap-av-share-suite.h"
+#include "../libdmapsharing/dmap-connection-suite.h"
 #include "../libdmapsharing/dmap-md5-suite.h"
 #include "../libdmapsharing/dmap-utils-suite.h"
 
@@ -35,7 +38,10 @@ int main(void)
 {
         g_log_set_handler ("libdmapsharing", G_LOG_LEVEL_DEBUG, debug_null, NULL);
         g_log_set_handler (NULL, G_LOG_LEVEL_DEBUG, debug_null, NULL);
-        run_suite(dmap_test_daap_connection());
+        run_suite(dmap_test_dmap_av_connection());
+        run_suite(dmap_test_dmap_av_record());
+        run_suite(dmap_test_dmap_av_share());
+        run_suite(dmap_test_dmap_connection());
         run_suite(dmap_test_dmap_md5());
         run_suite(dmap_test_dmap_utils());
 

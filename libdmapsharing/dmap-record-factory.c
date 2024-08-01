@@ -1,5 +1,5 @@
 /*
- *  Database interface for a DMAPRecord Factory
+ *  Database interface for a DmapRecord Factory
  *
  *  Copyright (C) 2008 W. Michael Petullo <mike@flyn.org>
  *
@@ -20,43 +20,25 @@
 
 #include <libdmapsharing/dmap-record-factory.h>
 
-static gint dmap_record_factory_init_count = 0;
-
 static void
-dmap_record_factory_init (G_GNUC_UNUSED DMAPRecordFactoryIface * iface)
+dmap_record_factory_default_init (G_GNUC_UNUSED DmapRecordFactoryInterface * iface)
 {
-	dmap_record_factory_init_count++;
 }
 
-static void
-dmap_record_factory_finalize (G_GNUC_UNUSED DMAPRecordFactoryIface * iface)
-{
-	dmap_record_factory_init_count--;
-}
+G_DEFINE_INTERFACE(DmapRecordFactory, dmap_record_factory, G_TYPE_OBJECT)
 
-/* FIXME: No G_DEFINE_INTERFACE available in GObject headers: */
-GType
-dmap_record_factory_get_type (void)
+DmapRecord *
+dmap_record_factory_create (DmapRecordFactory *factory,
+                            gpointer user_data,
+                            GError **error)
 {
-	static GType object_type = 0;
+	DmapRecord *record = DMAP_RECORD_FACTORY_GET_INTERFACE
+		(factory)->create (factory,
+		                   user_data,
+		                   error);
 
-	if (!object_type) {
-		static const GTypeInfo object_info = {
-			class_size:     sizeof (DMAPRecordFactoryIface),
-			base_init:     (GBaseInitFunc) dmap_record_factory_init,
-			base_finalize: (GBaseFinalizeFunc) dmap_record_factory_finalize
-		};
-		object_type =
-			g_type_register_static (G_TYPE_INTERFACE,
-						"DMAPRecordFactory",
-						&object_info, 0);
-	}
-	return object_type;
-}
+	g_assert((NULL == record && (NULL == error || NULL != *error))
+	      || (NULL != record && (NULL == error || NULL == *error)));
 
-DMAPRecord *
-dmap_record_factory_create (DMAPRecordFactory * factory, gpointer user_data)
-{
-	return DMAP_RECORD_FACTORY_GET_INTERFACE (factory)->create (factory,
-								    user_data);
+	return record;
 }
