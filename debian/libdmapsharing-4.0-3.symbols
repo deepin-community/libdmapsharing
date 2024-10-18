@@ -1,4 +1,4 @@
-libdmapsharing-4.0.so.3 libdmapsharing-4.0-3t64 #MINVER#
+libdmapsharing-4.0.so.3 libdmapsharing-4.0-3 #MINVER#
 * Build-Depends-Package: libdmapsharing-4.0-dev
  (optional)__gcov_error_file@Base 3.9.12
  (optional)__gcov_kvp_dynamic_pool@Base 3.9.12
